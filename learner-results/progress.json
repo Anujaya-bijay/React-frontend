@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-02-06T11:31:55.811Z",
+  "lastUpdated": "2026-06-11T20:47:29.302Z",
   "pathway": {
     "name": "Modern React Engineer",
     "version": "1.0.0",
-    "overallScore": 17,
+    "overallScore": 21.8,
     "completionPercentage": 0,
     "badgeLevel": "none",
     "totalChallenges": 53,
@@ -13,12 +13,28 @@
     "01-react-fundamentals": {
       "courseId": "01-react-fundamentals",
       "courseName": "React Fundamentals",
-      "averageScore": 0,
+      "averageScore": 66,
       "completionPercentage": 0,
       "badgeLevel": "none",
       "totalChallenges": 23,
       "completedChallenges": 0,
-      "challenges": {}
+      "challenges": {
+        "01-static-task-display": {
+          "challengeId": "01-static-task-display",
+          "challengeName": "Static Task Display",
+          "passed": false,
+          "score": 65.97,
+          "lastRun": "2026-06-11T20:47:01.119Z",
+          "scores": {
+            "functionalTests": 72.2,
+            "codeQuality": 50,
+            "architecture": 100,
+            "bestPractices": 100,
+            "e2eTests": 0,
+            "aiReview": 88
+          }
+        }
+      }
     },
     "02-redux-rtk-query": {
       "courseId": "02-redux-rtk-query",

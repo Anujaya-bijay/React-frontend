@@ -6,6 +6,14 @@ interface StatsPanelProps {
   completedPercentage?: number
 }
 
-export default function StatsPanel(_props: StatsPanelProps) {
-  return null
+export default function StatsPanel({
+  total = 0,
+  completed = 0,
+}: StatsPanelProps) {
+  return (
+    <section id="stats-panel">
+      <p>Total: {total}</p>
+      <p>Completed: {completed}</p>
+    </section>
+  )
 }

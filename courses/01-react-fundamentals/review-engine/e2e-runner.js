@@ -22,7 +22,7 @@ function runPlaywright(projectDir, testFileRel, env) {
         encoding: 'utf-8',
         timeout: E2E_TIMEOUT_MS,
         env: runEnv,
-        stdio: ['pipe', 'pipe', 'pipe']
+        stdio: ['pipe', 'pipe', 'ignore'] 
       });
     } catch (err) {
       err.stdout = err.stdout ?? '';

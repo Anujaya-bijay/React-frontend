@@ -1,61 +1,41 @@
 interface TaskCardProps {
-  id?: string | number
   title: string
   description: string
-  priority: string
+  priority?: string
   completed?: boolean
   onToggle?: (id: string | number) => void
   onDelete?: (id: string | number) => void
+  taskId?: string | number
+  id?: string | number
 }
 
-export default function TaskCard({
-  id,
-  title,
-  description,
-  priority,
-  completed = false,
-  onToggle,
-  onDelete,
-}: TaskCardProps) {
+export default function TaskCard({ title, description, priority, completed, onToggle, onDelete, taskId, id }: TaskCardProps) {
+  const resolvedId = taskId ?? id ?? 0
+  const priorityLabel = priority
+    ? priority.startsWith('Priority:') ? priority : `Priority: ${priority}`
+    : ''
+
+  function handleDelete() {
+    if (onDelete && window.confirm('Delete this task?')) {
+      onDelete(resolvedId)
+    }
+  }
+
   return (
-    <article
-      id="task-card"
-      data-completed={completed ? "true" : "false"}
-    >
+    <article id="task-card" data-completed={completed ? 'true' : undefined}>
       {onToggle && (
         <input
           type="checkbox"
-          checked={completed}
-          onChange={() => {
-            onToggle(id ?? 0)
-          }}
+          checked={!!completed}
+          onChange={() => onToggle(resolvedId)}
+          aria-label={`Toggle ${title}`}
         />
       )}
-
-      <h2
-        style={{
-          textDecoration: completed ? "line-through" : "none",
-        }}
-      >
-        {title}
-      </h2>
-
+      <h2 style={completed ? { textDecoration: 'line-through' } : undefined}>{title}</h2>
       <p>{description}</p>
-
-      <p>Priority: {priority}</p>
-
+      <p>{priorityLabel}</p>
       {onDelete && (
-        <button
-          onClick={() => {
-            const confirmed = window.confirm("Delete task?")
-
-            if (confirmed) {
-              onDelete(id ?? 0)
-            }
-          }}
-        >
-          Delete
-        </button>
+        <button onClick={handleDelete}>Delete</button>
       )}
     </article>
   )

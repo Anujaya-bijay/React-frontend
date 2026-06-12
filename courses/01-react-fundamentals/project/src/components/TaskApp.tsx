@@ -1,37 +1,78 @@
-import TaskList from './TaskList'
+import { useState } from 'react'
 
-interface Task {
-  id: string | number
-  title: string
-  description: string
-  priority: string
-  completed: boolean
+interface TaskFormProps {
+  onAddTask?: (task: {
+    id: string | number
+    title: string
+    description: string
+    priority: string
+    completed: boolean
+  }) => void
 }
 
-interface TaskAppProps {
-  tasks: Task[]
-  setTasks?: React.Dispatch<React.SetStateAction<Task[]>>
-  showForm?: boolean
-  countFormat?: string
-}
+export default function TaskForm({ onAddTask }: TaskFormProps) {
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [priority, setPriority] = useState('Low')
+  const [error, setError] = useState('')
 
-export default function TaskApp({
-  tasks,
-  countFormat = 'tasks',
-}: TaskAppProps) {
-  const countText =
-    countFormat === 'tasks'
-      ? `${tasks.length} Tasks`
-      : `${tasks.length}`
+  function handleSubmit(event: React.FormEvent) {
+    event.preventDefault()
+
+    if (!title.trim()) {
+      setError('Title is required')
+      return
+    }
+
+    setError('')
+
+    onAddTask?.({
+      id: Date.now(),
+      title,
+      description,
+      priority,
+      completed: false,
+    })
+
+    setTitle('')
+    setDescription('')
+    setPriority('Low')
+  }
 
   return (
-    <div id="task-app">
-      <p id="task-count">{countText}</p>
-
-      <TaskList
-        tasks={tasks}
-        countText={countText}
+    <form onSubmit={handleSubmit}>
+      <input
+        id="task-title"
+        type="text"
+        value={title}
+        onChange={(event) => setTitle(event.target.value)}
+        placeholder="Title"
       />
-    </div>
+
+      <textarea
+        value={description}
+        onChange={(event) => setDescription(event.target.value)}
+        placeholder="Description"
+      />
+
+      <select
+        value={priority}
+        onChange={(event) => setPriority(event.target.value)}
+      >
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+
+      {error && (
+        <p id="task-form-error">
+          {error}
+        </p>
+      )}
+
+      <button type="submit">
+        Add Task
+      </button>
+    </form>
   )
 }

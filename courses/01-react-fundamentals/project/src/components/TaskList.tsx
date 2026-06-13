@@ -1,4 +1,4 @@
-import TaskCard from './TaskCard'
+import TaskCard from "./TaskCard"
 
 export interface Task {
   id: string | number
@@ -6,9 +6,6 @@ export interface Task {
   description: string
   priority: string
   completed: boolean
-  category?: string
-  tags?: string[]
-  dueDate?: string | number
 }
 
 interface TaskListProps {
@@ -16,25 +13,48 @@ interface TaskListProps {
   countText?: string
   onToggle?: (id: string | number) => void
   onDelete?: (id: string | number) => void
-  linkToTaskDetail?: boolean
 }
 
-const hardcodedTasks: Task[] = [
-  { id: 1, title: 'Task One', description: 'First hardcoded task', priority: 'Priority: High', completed: false },
-  { id: 2, title: 'Task Two', description: 'Second hardcoded task', priority: 'Priority: Medium', completed: false },
-  { id: 3, title: 'Task Three', description: 'Third hardcoded task', priority: 'Priority: Low', completed: false },
+const defaultTasks: Task[] = [
+  {
+    id: 1,
+    title: "Task One",
+    description: "Description One",
+    priority: "Low",
+    completed: false,
+  },
+  {
+    id: 2,
+    title: "Task Two",
+    description: "Description Two",
+    priority: "Medium",
+    completed: false,
+  },
+  {
+    id: 3,
+    title: "Task Three",
+    description: "Description Three",
+    priority: "High",
+    completed: false,
+  },
 ]
 
-export default function TaskList({ tasks, countText, onToggle, onDelete }: TaskListProps) {
-  const displayTasks = tasks !== undefined ? tasks : hardcodedTasks
-
+export default function TaskList({
+  tasks = defaultTasks,
+  countText,
+  onToggle,
+  onDelete,
+}: TaskListProps) {
   return (
     <section id="task-list">
-      {countText && <p id="task-count">{countText}</p>}
-      {displayTasks.map(task => (
+      <h2 id="task-count">
+        {countText ?? `${tasks.length} Tasks`}
+      </h2>
+
+      {tasks.map((task) => (
         <TaskCard
           key={task.id}
-          taskId={task.id}
+          id={task.id}
           title={task.title}
           description={task.description}
           priority={task.priority}

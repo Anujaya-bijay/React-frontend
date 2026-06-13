@@ -1,78 +1,54 @@
-import { useState } from 'react'
+import TaskList from "./TaskList"
+import TaskForm from "./TaskForm"
+import type { Task } from "./TaskList"
 
-interface TaskFormProps {
-  onAddTask?: (task: {
-    id: string | number
-    title: string
-    description: string
-    priority: string
-    completed: boolean
-  }) => void
+interface TaskAppProps {
+  tasks: Task[]
+  setTasks?: React.Dispatch<React.SetStateAction<Task[]>>
+  showForm?: boolean
 }
 
-export default function TaskForm({ onAddTask }: TaskFormProps) {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [priority, setPriority] = useState('Low')
-  const [error, setError] = useState('')
-
-  function handleSubmit(event: React.FormEvent) {
-    event.preventDefault()
-
-    if (!title.trim()) {
-      setError('Title is required')
-      return
+export default function TaskApp({
+  tasks,
+  setTasks,
+  showForm,
+}: TaskAppProps) {
+  function handleAddTask(task: Task) {
+    if (setTasks) {
+      setTasks((prev) => [...prev, task])
     }
-
-    setError('')
-
-    onAddTask?.({
-      id: Date.now(),
-      title,
-      description,
-      priority,
-      completed: false,
-    })
-
-    setTitle('')
-    setDescription('')
-    setPriority('Low')
   }
 
+  function handleToggle(id: string | number) {
+    if (!setTasks) return
+
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              completed: !task.completed,
+            }
+          : task
+      )
+    )
+  }
+
+  const completedCount = tasks.filter(
+    (t) => t.completed
+  ).length
+
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        id="task-title"
-        type="text"
-        value={title}
-        onChange={(event) => setTitle(event.target.value)}
-        placeholder="Title"
-      />
-
-      <textarea
-        value={description}
-        onChange={(event) => setDescription(event.target.value)}
-        placeholder="Description"
-      />
-
-      <select
-        value={priority}
-        onChange={(event) => setPriority(event.target.value)}
-      >
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-      </select>
-
-      {error && (
-        <p id="task-form-error">
-          {error}
-        </p>
+    <div>
+      {showForm && (
+        <TaskForm onAddTask={handleAddTask} />
       )}
 
-      <button type="submit">
-        Add Task
-      </button>
-    </form>
+      <TaskList
+        tasks={tasks}
+        onToggle={handleToggle}
+        countText={`${completedCount} of ${tasks.length} completed`}
+      />
+    </div>
   )
 }

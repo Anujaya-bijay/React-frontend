@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import type { Dispatch, SetStateAction } from 'react'
 import TaskList, { type Task } from './TaskList'
 import TaskForm from './TaskForm'
+import FilterBar from './FilterBar'
 
 interface TaskAppProps {
   tasks?: Task[]
@@ -17,12 +19,24 @@ interface TaskAppProps {
 export default function TaskApp(props: TaskAppProps) {
   const tasks = props.tasks ?? []
 
+  const [filter, setFilter] = useState<
+    'all' | 'active' | 'completed'
+  >('all')
+
   const completedCount = tasks.filter(
     (task) => task.completed
   ).length
 
-  const taskCountText =
-    `${completedCount} of ${tasks.length} completed`
+  const filteredTasks =
+    filter === 'active'
+      ? tasks.filter((task) => !task.completed)
+      : filter === 'completed'
+        ? tasks.filter((task) => task.completed)
+        : tasks
+
+  const taskCountText = props.showFilterBar
+    ? `Showing ${filteredTasks.length} of ${tasks.length} tasks`
+    : `${completedCount} of ${tasks.length} completed`
 
   function handleToggle(id: string | number) {
     if (props.setTasks) {
@@ -54,12 +68,25 @@ export default function TaskApp(props: TaskAppProps) {
         <TaskForm onAddTask={handleAddTask} />
       )}
 
-      <TaskList
-        tasks={tasks}
-        countText={taskCountText}
-        onToggle={handleToggle}
-        onDelete={props.onDelete}
-      />
+      {props.showFilterBar && (
+        <FilterBar
+          filter={filter}
+          onFilterChange={setFilter}
+        />
+      )}
+
+      {filteredTasks.length === 0 && props.showFilterBar ? (
+        <p id="filter-empty-message">
+          No tasks match this filter
+        </p>
+      ) : (
+        <TaskList
+          tasks={filteredTasks}
+          countText={taskCountText}
+          onToggle={handleToggle}
+          onDelete={props.onDelete}
+        />
+      )}
     </main>
   )
 }

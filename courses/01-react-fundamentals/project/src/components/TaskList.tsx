@@ -6,6 +6,9 @@ export interface Task {
   description: string
   priority: string
   completed: boolean
+  category?: string
+  tags?: string[]
+  dueDate?: string | number
 }
 
 interface TaskListProps {
@@ -13,56 +16,55 @@ interface TaskListProps {
   countText?: string
   onToggle?: (id: string | number) => void
   onDelete?: (id: string | number) => void
+  linkToTaskDetail?: boolean
 }
 
-const defaultTasks: Task[] = [
+const HARDCODED_TASKS: Task[] = [
   {
     id: 1,
     title: "Task One",
-    description: "Description One",
-    priority: "Low",
+    description: "First hardcoded task",
+    priority: "High",
     completed: false,
   },
   {
     id: 2,
     title: "Task Two",
-    description: "Description Two",
+    description: "Second hardcoded task",
     priority: "Medium",
     completed: false,
   },
   {
     id: 3,
     title: "Task Three",
-    description: "Description Three",
-    priority: "High",
+    description: "Third hardcoded task",
+    priority: "Low",
     completed: false,
   },
 ]
 
-export default function TaskList({
-  tasks = defaultTasks,
-  countText,
-  onToggle,
-  onDelete,
-}: TaskListProps) {
-  return (
-    <section id="task-list">
-      <h2 id="task-count">
-        {countText ?? `${tasks.length} Tasks`}
-      </h2>
+export default function TaskList(props: TaskListProps) {
+  const taskList = props.tasks ?? HARDCODED_TASKS
+  const countText = props.countText
 
-      {tasks.map((task) => (
-        <TaskCard
-          key={task.id}
-          id={task.id}
-          title={task.title}
-          description={task.description}
-          priority={task.priority}
-          completed={task.completed}
-          onToggle={onToggle}
-          onDelete={onDelete}
-        />
-      ))}
-    </section>
+  return (
+    <>
+      {countText && <div id="task-count">{countText}</div>}
+
+      <section id="task-list">
+        {taskList.map((task) => (
+          <TaskCard
+            key={task.id}
+            title={task.title}
+            description={task.description}
+            priority={task.priority}
+            completed={task.completed}
+            onToggle={props.onToggle}
+            onDelete={props.onDelete}
+            id={task.id}
+          />
+        ))}
+      </section>
+    </>
   )
 }

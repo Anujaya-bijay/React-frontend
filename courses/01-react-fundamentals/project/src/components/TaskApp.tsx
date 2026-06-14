@@ -1,54 +1,65 @@
-import TaskList from "./TaskList"
-import TaskForm from "./TaskForm"
-import type { Task } from "./TaskList"
+import type { Dispatch, SetStateAction } from 'react'
+import TaskList, { type Task } from './TaskList'
+import TaskForm from './TaskForm'
 
 interface TaskAppProps {
-  tasks: Task[]
-  setTasks?: React.Dispatch<React.SetStateAction<Task[]>>
+  tasks?: Task[]
+  setTasks?: Dispatch<SetStateAction<Task[]>>
+  dispatch?: (action: { type: string; payload?: unknown }) => void
   showForm?: boolean
+  countFormat?: string
+  showFilterBar?: boolean
+  showStatsPanel?: boolean
+  onDelete?: (id: string | number) => void
+  linkToTaskDetail?: boolean
 }
 
-export default function TaskApp({
-  tasks,
-  setTasks,
-  showForm,
-}: TaskAppProps) {
-  function handleAddTask(task: Task) {
-    if (setTasks) {
-      setTasks((prev) => [...prev, task])
+export default function TaskApp(props: TaskAppProps) {
+  const tasks = props.tasks ?? []
+
+  const completedCount = tasks.filter(
+    (task) => task.completed
+  ).length
+
+  const taskCountText =
+    `${completedCount} of ${tasks.length} completed`
+
+  function handleToggle(id: string | number) {
+    if (props.setTasks) {
+      props.setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === id
+            ? {
+                ...task,
+                completed: !task.completed,
+              }
+            : task
+        )
+      )
     }
   }
 
-  function handleToggle(id: string | number) {
-    if (!setTasks) return
-
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id
-          ? {
-              ...task,
-              completed: !task.completed,
-            }
-          : task
-      )
-    )
+  function handleAddTask(newTask: Task) {
+    if (props.setTasks) {
+      props.setTasks((prevTasks) => [
+        ...prevTasks,
+        newTask,
+      ])
+    }
   }
 
-  const completedCount = tasks.filter(
-    (t) => t.completed
-  ).length
-
   return (
-    <div>
-      {showForm && (
+    <main>
+      {props.showForm && (
         <TaskForm onAddTask={handleAddTask} />
       )}
 
       <TaskList
         tasks={tasks}
+        countText={taskCountText}
         onToggle={handleToggle}
-        countText={`${completedCount} of ${tasks.length} completed`}
+        onDelete={props.onDelete}
       />
-    </div>
+    </main>
   )
 }

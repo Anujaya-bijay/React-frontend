@@ -1,4 +1,3 @@
-import "./App.tsx";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ChallengeList from "./components/ChallengeList";
@@ -51,7 +50,9 @@ function AppContent() {
   const [tasks, setTasks] = useState<Task[]>(INITIAL_TASKS);
 
   const handleDelete = (id: string | number) => {
-    setTasks((prev) => prev.filter((t) => t.id !== id));
+    setTasks((prev) =>
+      prev.filter((t) => t.id !== id)
+    );
   };
 
   return (
@@ -59,7 +60,10 @@ function AppContent() {
       <div className="App">
         <main>
           <Routes>
-            <Route path="/" element={<ChallengeList />} />
+            <Route
+              path="/"
+              element={<ChallengeList />}
+            />
 
             <Route
               path="/challenge/01-static-task-display"
@@ -118,6 +122,30 @@ function AppContent() {
                   tasks={tasks}
                   setTasks={setTasks}
                   showForm
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/08-task-editing"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                  onDelete={handleDelete}
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/09-search-functionality"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                  onDelete={handleDelete}
                 />
               }
             />

@@ -1,12 +1,10 @@
 interface FilterBarProps {
   filter: 'all' | 'active' | 'completed'
-
   onFilterChange: (
     filter: 'all' | 'active' | 'completed'
   ) => void
 
   searchTerm?: string
-
   onSearchChange?: (
     value: string
   ) => void
@@ -47,21 +45,20 @@ export default function FilterBar({
       />
 
       <button
-        data-active={filter === 'all'}
         onClick={() => onFilterChange('all')}
       >
         All
       </button>
 
       <button
-        data-active={filter === 'active'}
-        onClick={() => onFilterChange('active')}
+        onClick={() =>
+          onFilterChange('active')
+        }
       >
         Active
       </button>
 
       <button
-        data-active={filter === 'completed'}
         onClick={() =>
           onFilterChange('completed')
         }
@@ -85,15 +82,12 @@ export default function FilterBar({
         <option value="recent">
           Recently Added
         </option>
-
         <option value="high-low">
           Priority: High to Low
         </option>
-
         <option value="low-high">
           Priority: Low to High
         </option>
-
         <option value="alphabetical">
           Alphabetical
         </option>

@@ -68,11 +68,11 @@ npm run review -- --challenge=01-static-task-display
 
 ## 📊 Progress Evidence
 
-*Auto-updated when you run review. Last run: 15/6/2026, 1:11:24 pm*
+*Auto-updated when you run review. Last run: 15/6/2026, 11:34:14 pm*
 
 | Metric | Value |
 |--------|-------|
-| Challenges completed | 8 / 23 (34.8%) |
+| Challenges completed | 9 / 23 (39.1%) |
 | Average score | 80.7% |
 
 | Challenge | Skills covered | Status |
@@ -85,7 +85,7 @@ npm run review -- --challenge=01-static-task-display
 | Task Filtering | Derived state, Conditional rendering, Filter logic composition | Passed |
 | Priority-Based Sorting | Array sort, Sort stability, Multiple sort criteria, Select dropdowns | Passed |
 | Task Editing | Inline editing, Conditional rendering, Edit mode state, Controlled inputs, Form handling, State synchronization | Passed |
-| Search Functionality | Text search, Combining filters, String methods, Search UI patterns | — |
+| Search Functionality | Text search, Combining filters, String methods, Search UI patterns | Passed |
 | useEffect - Local Storage Persistence | useEffect, Side effects, localStorage, JSON serialization, Effect dependencies | — |
 | useEffect - Debounced Search | useEffect cleanup, setTimeout, Debouncing, Memory leak prevention | — |
 | Categories and Tags | Complex state, Array fields, Multi-select/tags input, Nested data, Filtering by array membership | — |

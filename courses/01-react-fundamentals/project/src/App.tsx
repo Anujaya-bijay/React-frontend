@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ChallengeList from "./components/ChallengeList";
 import TaskList from "./components/TaskList";
@@ -7,6 +7,8 @@ import TaskDetailPage from "./components/TaskDetailPage";
 import FetchDemoView from "./components/FetchDemoView";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import type { Task } from "./components/TaskList";
+
+const STORAGE_KEY = "task-app-tasks";
 
 const INITIAL_TASKS: Task[] = [
   {
@@ -47,142 +49,6 @@ const INITIAL_TASKS: Task[] = [
 ];
 
 function AppContent() {
-  const [tasks, setTasks] = useState<Task[]>(INITIAL_TASKS);
-
-  const handleDelete = (id: string | number) => {
-    setTasks((prev) =>
-      prev.filter((t) => t.id !== id)
-    );
-  };
-
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <main>
-          <Routes>
-            <Route
-              path="/"
-              element={<ChallengeList />}
-            />
-
-            <Route
-              path="/challenge/01-static-task-display"
-              element={<TaskList />}
-            />
-
-            <Route
-              path="/challenge/02-dynamic-task-rendering"
-              element={
-                <TaskApp
-                  tasks={tasks}
-                  setTasks={setTasks}
-                  showForm={false}
-                />
-              }
-            />
-
-            <Route
-              path="/challenge/03-adding-new-tasks"
-              element={
-                <TaskApp
-                  tasks={tasks}
-                  setTasks={setTasks}
-                  showForm
-                />
-              }
-            />
-
-            <Route
-              path="/challenge/04-task-completion-toggle"
-              element={
-                <TaskApp
-                  tasks={tasks}
-                  setTasks={setTasks}
-                  showForm
-                />
-              }
-            />
-
-            <Route
-              path="/challenge/05-task-deletion"
-              element={
-                <TaskApp
-                  tasks={tasks}
-                  setTasks={setTasks}
-                  showForm
-                  onDelete={handleDelete}
-                />
-              }
-            />
-
-            <Route
-              path="/challenge/06-task-filtering"
-              element={
-                <TaskApp
-                  tasks={tasks}
-                  setTasks={setTasks}
-                  showForm
-                />
-              }
-            />
-
-            <Route
-              path="/challenge/08-task-editing"
-              element={
-                <TaskApp
-                  tasks={tasks}
-                  setTasks={setTasks}
-                  showForm
-                  onDelete={handleDelete}
-                />
-              }
-            />
-
-            <Route
-              path="/challenge/09-search-functionality"
-              element={
-                <TaskApp
-                  tasks={tasks}
-                  setTasks={setTasks}
-                  showForm
-                  onDelete={handleDelete}
-                />
-              }
-            />
-
-            <Route
-              path="/challenge/21-react-router"
-              element={
-                <TaskApp
-                  tasks={tasks}
-                  setTasks={setTasks}
-                  showForm
-                />
-              }
-            />
-
-            <Route
-              path="/challenge/21-react-router/task/:id"
-              element={<TaskDetailPage />}
-            />
-
-            <Route
-              path="/challenge/22-data-fetching"
-              element={<FetchDemoView />}
-            />
-          </Routes>
-        </main>
-      </div>
-    </BrowserRouter>
-  );
-}
-
-function App() {
-  return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
-  );
-}
-
-export default App;
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    try {
+     

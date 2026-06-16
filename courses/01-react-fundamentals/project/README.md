@@ -68,12 +68,12 @@ npm run review -- --challenge=01-static-task-display
 
 ## 📊 Progress Evidence
 
-*Auto-updated when you run review. Last run: 16/6/2026, 11:13:38 am*
+*Auto-updated when you run review. Last run: 16/6/2026, 11:20:48 am*
 
 | Metric | Value |
 |--------|-------|
-| Challenges completed | 10 / 23 (43.5%) |
-| Average score | 80.7% |
+| Challenges completed | 11 / 23 (47.8%) |
+| Average score | 80.8% |
 
 | Challenge | Skills covered | Status |
 |-----------|----------------|--------|
@@ -87,7 +87,7 @@ npm run review -- --challenge=01-static-task-display
 | Task Editing | Inline editing, Conditional rendering, Edit mode state, Controlled inputs, Form handling, State synchronization | Passed |
 | Search Functionality | Text search, Combining filters, String methods, Search UI patterns | Passed |
 | useEffect - Local Storage Persistence | useEffect, Side effects, localStorage, JSON serialization, Effect dependencies | Passed |
-| useEffect - Debounced Search | useEffect cleanup, setTimeout, Debouncing, Memory leak prevention | — |
+| useEffect - Debounced Search | useEffect cleanup, setTimeout, Debouncing, Memory leak prevention | Passed |
 | Categories and Tags | Complex state, Array fields, Multi-select/tags input, Nested data, Filtering by array membership | — |
 | Due Dates and Sorting | Date handling, Date objects and formatting, Date comparison, Overdue detection | — |
 | Task Statistics Dashboard | Computed statistics, useMemo, Performance optimization, Data aggregation | — |

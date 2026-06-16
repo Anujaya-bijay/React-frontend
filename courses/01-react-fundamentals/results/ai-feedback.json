@@ -228,5 +228,28 @@
       "maintainability": 90,
       "overall": "The code is well-structured and easy to follow, but there are some minor improvements that can be made to make it more maintainable and efficient."
     }
+  },
+  {
+    "challengeId": "11-useeffect-debounced-search",
+    "challengeName": "useEffect - Debounced Search",
+    "aiReview": {
+      "challengeId": "11-useeffect-debounced-search",
+      "timestamp": "2026-06-16T05:50:46.768Z",
+      "score": 88,
+      "feedback": [],
+      "strengths": [
+        "Effective use of React Hooks and state management",
+        "Clear separation of concerns between components",
+        "Well-structured code with clear and concise variable names"
+      ],
+      "improvements": [
+        "Consider adding type annotations for the `useEffect` cleanup function",
+        "In the `FilterBar` component, consider using a more robust way to handle the `onSearchChange` prop, such as using a callback function with a default implementation",
+        "In the `TaskApp` component, consider extracting the `handleDelete` function into its own separate file or module to improve code organization and reusability"
+      ],
+      "readability": 85,
+      "maintainability": 90,
+      "overall": "The code is well-structured, maintainable, and effectively uses React Hooks and state management. However, there are some minor improvements that can be made to enhance code readability and organization."
+    }
   }
 ]

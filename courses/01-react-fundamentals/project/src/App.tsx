@@ -51,4 +51,191 @@ const INITIAL_TASKS: Task[] = [
 function AppContent() {
   const [tasks, setTasks] = useState<Task[]>(() => {
     try {
-     
+      const savedTasks =
+        localStorage.getItem(STORAGE_KEY);
+
+      if (!savedTasks) {
+        return INITIAL_TASKS;
+      }
+
+      const parsedTasks =
+        JSON.parse(savedTasks);
+
+      return Array.isArray(parsedTasks)
+        ? parsedTasks
+        : INITIAL_TASKS;
+    } catch {
+      return INITIAL_TASKS;
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(tasks)
+    );
+  }, [tasks]);
+
+  const handleDelete = (
+    id: string | number
+  ) => {
+    setTasks((prev) =>
+      prev.filter((t) => t.id !== id)
+    );
+  };
+
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <main>
+          <Routes>
+            <Route
+              path="/"
+              element={<ChallengeList />}
+            />
+
+            <Route
+              path="/challenge/01-static-task-display"
+              element={<TaskList />}
+            />
+
+            <Route
+              path="/challenge/02-dynamic-task-rendering"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm={false}
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/03-adding-new-tasks"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/04-task-completion-toggle"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/05-task-deletion"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                  onDelete={handleDelete}
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/06-task-filtering"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/08-task-editing"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                  onDelete={handleDelete}
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/09-search-functionality"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                  onDelete={handleDelete}
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/10-useeffect-local-storage"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                  onDelete={handleDelete}
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/11-useeffect-debounced-search"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                  onDelete={handleDelete}
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/21-react-router"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/21-react-router/task/:id"
+              element={<TaskDetailPage />}
+            />
+
+            <Route
+              path="/challenge/22-data-fetching"
+              element={<FetchDemoView />}
+            />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
+  );
+}
+
+export default App;

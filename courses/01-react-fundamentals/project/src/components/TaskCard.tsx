@@ -5,12 +5,17 @@ interface TaskCardProps {
   description: string;
   priority?: string;
   completed?: boolean;
+  category?: string;
+  tags?: string[];
+
   onToggle?: (id: string | number) => void;
   onDelete?: (id: string | number) => void;
+
   taskId?: string | number;
   id?: string | number;
 
   editingId?: string | number | null;
+
   setEditingId?: (
     id: string | number | null
   ) => void;
@@ -30,6 +35,8 @@ export default function TaskCard({
   description,
   priority = "Low",
   completed,
+  category = "General",
+  tags = [],
   onToggle,
   onDelete,
   taskId,
@@ -40,13 +47,21 @@ export default function TaskCard({
 }: TaskCardProps) {
   const resolvedId = taskId ?? id ?? 0;
 
-  const isEditing = editingId === resolvedId;
+  const isEditing =
+    editingId === resolvedId;
 
-  const [editTitle, setEditTitle] = useState(title);
-  const [editDescription, setEditDescription] =
-    useState(description);
-  const [editPriority, setEditPriority] =
-    useState(priority);
+  const [editTitle, setEditTitle] =
+    useState(title);
+
+  const [
+    editDescription,
+    setEditDescription,
+  ] = useState(description);
+
+  const [
+    editPriority,
+    setEditPriority,
+  ] = useState(priority);
 
   useEffect(() => {
     if (isEditing) {
@@ -190,6 +205,31 @@ export default function TaskCard({
           <p>
             Priority: {priority}
           </p>
+
+          <p id="task-category">
+            Category: {category}
+          </p>
+
+          <div id="task-tags">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                data-tag={tag}
+                style={{
+                  display:
+                    "inline-block",
+                  marginRight: "6px",
+                  padding: "2px 8px",
+                  border:
+                    "1px solid #ccc",
+                  borderRadius:
+                    "12px",
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
 
           {setEditingId && (
             <button

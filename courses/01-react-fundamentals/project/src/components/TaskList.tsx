@@ -6,6 +6,8 @@ export interface Task {
   description: string;
   priority: string;
   completed: boolean;
+  category: string;
+  tags: string[];
 }
 
 interface TaskListProps {
@@ -34,6 +36,8 @@ const defaultTasks: Task[] = [
     description: "Description One",
     priority: "Low",
     completed: false,
+    category: "General",
+    tags: ["sample"],
   },
   {
     id: 2,
@@ -41,6 +45,8 @@ const defaultTasks: Task[] = [
     description: "Description Two",
     priority: "Medium",
     completed: false,
+    category: "Work",
+    tags: ["office"],
   },
   {
     id: 3,
@@ -48,6 +54,8 @@ const defaultTasks: Task[] = [
     description: "Description Three",
     priority: "High",
     completed: false,
+    category: "Personal",
+    tags: ["important"],
   },
 ];
 
@@ -74,6 +82,8 @@ export default function TaskList({
           description={task.description}
           priority={task.priority}
           completed={task.completed}
+          category={task.category}
+          tags={task.tags}
           onToggle={onToggle}
           onDelete={onDelete}
           onUpdateTask={onUpdateTask}

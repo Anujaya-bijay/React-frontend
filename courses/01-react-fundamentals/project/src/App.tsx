@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+
 import ChallengeList from "./components/ChallengeList";
 import TaskList from "./components/TaskList";
 import TaskApp from "./components/TaskApp";
 import TaskDetailPage from "./components/TaskDetailPage";
 import FetchDemoView from "./components/FetchDemoView";
+
 import { ThemeProvider } from "./contexts/ThemeContext";
+
 import type { Task } from "./components/TaskList";
 
 const STORAGE_KEY = "task-app-tasks";
@@ -17,6 +24,8 @@ const INITIAL_TASKS: Task[] = [
     description: "Description one",
     priority: "High",
     completed: false,
+    category: "General",
+    tags: [],
   },
   {
     id: 2,
@@ -24,6 +33,8 @@ const INITIAL_TASKS: Task[] = [
     description: "Description two",
     priority: "Medium",
     completed: false,
+    category: "Work",
+    tags: ["office"],
   },
   {
     id: 3,
@@ -31,6 +42,8 @@ const INITIAL_TASKS: Task[] = [
     description: "Description three",
     priority: "Low",
     completed: false,
+    category: "Personal",
+    tags: ["important"],
   },
   {
     id: 4,
@@ -38,6 +51,8 @@ const INITIAL_TASKS: Task[] = [
     description: "Description four",
     priority: "Medium",
     completed: false,
+    category: "General",
+    tags: [],
   },
   {
     id: 5,
@@ -45,29 +60,50 @@ const INITIAL_TASKS: Task[] = [
     description: "Description five",
     priority: "High",
     completed: false,
+    category: "Work",
+    tags: [],
   },
 ];
 
 function AppContent() {
-  const [tasks, setTasks] = useState<Task[]>(() => {
-    try {
-      const savedTasks =
-        localStorage.getItem(STORAGE_KEY);
+  const [tasks, setTasks] =
+    useState<Task[]>(() => {
+      try {
+        const savedTasks =
+          localStorage.getItem(
+            STORAGE_KEY
+          );
 
-      if (!savedTasks) {
+        if (!savedTasks) {
+          return INITIAL_TASKS;
+        }
+
+        const parsedTasks =
+          JSON.parse(savedTasks);
+
+        if (
+          !Array.isArray(parsedTasks)
+        ) {
+          return INITIAL_TASKS;
+        }
+
+        return parsedTasks.map(
+          (task) => ({
+            ...task,
+            category:
+              task.category ||
+              "General",
+            tags: Array.isArray(
+              task.tags
+            )
+              ? task.tags
+              : [],
+          })
+        );
+      } catch {
         return INITIAL_TASKS;
       }
-
-      const parsedTasks =
-        JSON.parse(savedTasks);
-
-      return Array.isArray(parsedTasks)
-        ? parsedTasks
-        : INITIAL_TASKS;
-    } catch {
-      return INITIAL_TASKS;
-    }
-  });
+    });
 
   useEffect(() => {
     localStorage.setItem(
@@ -80,7 +116,9 @@ function AppContent() {
     id: string | number
   ) => {
     setTasks((prev) =>
-      prev.filter((t) => t.id !== id)
+      prev.filter(
+        (task) => task.id !== id
+      )
     );
   };
 
@@ -91,7 +129,9 @@ function AppContent() {
           <Routes>
             <Route
               path="/"
-              element={<ChallengeList />}
+              element={
+                <ChallengeList />
+              }
             />
 
             <Route
@@ -139,7 +179,9 @@ function AppContent() {
                   tasks={tasks}
                   setTasks={setTasks}
                   showForm
-                  onDelete={handleDelete}
+                  onDelete={
+                    handleDelete
+                  }
                 />
               }
             />
@@ -162,7 +204,9 @@ function AppContent() {
                   tasks={tasks}
                   setTasks={setTasks}
                   showForm
-                  onDelete={handleDelete}
+                  onDelete={
+                    handleDelete
+                  }
                 />
               }
             />
@@ -174,7 +218,9 @@ function AppContent() {
                   tasks={tasks}
                   setTasks={setTasks}
                   showForm
-                  onDelete={handleDelete}
+                  onDelete={
+                    handleDelete
+                  }
                 />
               }
             />
@@ -186,7 +232,9 @@ function AppContent() {
                   tasks={tasks}
                   setTasks={setTasks}
                   showForm
-                  onDelete={handleDelete}
+                  onDelete={
+                    handleDelete
+                  }
                 />
               }
             />
@@ -198,7 +246,23 @@ function AppContent() {
                   tasks={tasks}
                   setTasks={setTasks}
                   showForm
-                  onDelete={handleDelete}
+                  onDelete={
+                    handleDelete
+                  }
+                />
+              }
+            />
+
+            <Route
+              path="/challenge/12-categories-and-tags"
+              element={
+                <TaskApp
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  showForm
+                  onDelete={
+                    handleDelete
+                  }
                 />
               }
             />
@@ -216,12 +280,16 @@ function AppContent() {
 
             <Route
               path="/challenge/21-react-router/task/:id"
-              element={<TaskDetailPage />}
+              element={
+                <TaskDetailPage />
+              }
             />
 
             <Route
               path="/challenge/22-data-fetching"
-              element={<FetchDemoView />}
+              element={
+                <FetchDemoView />
+              }
             />
           </Routes>
         </main>

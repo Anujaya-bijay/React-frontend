@@ -2,6 +2,7 @@ import { useState } from "react";
 import TaskList from "./TaskList";
 import TaskForm from "./TaskForm";
 import FilterBar from "./FilterBar";
+import StatsPanel from "./StatsPanel";
 import type { Task } from "./TaskList";
 
 interface TaskAppProps {
@@ -127,6 +128,10 @@ export default function TaskApp({
         onFilterChange={() => {}}
         sortOrder={sortOrder}
         onSortChange={setSortOrder}
+      />
+
+      <StatsPanel
+        tasks={sortedTasks}
       />
 
       <TaskList

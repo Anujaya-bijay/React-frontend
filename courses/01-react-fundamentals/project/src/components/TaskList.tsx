@@ -46,7 +46,7 @@ const defaultTasks: Task[] = [
     title: "Task Two",
     description: "Description Two",
     priority: "Medium",
-    completed: false,
+    completed: true,
     category: "Work",
     tags: ["office"],
     dueDate: "2026-06-22",
@@ -59,6 +59,7 @@ const defaultTasks: Task[] = [
     completed: false,
     category: "Personal",
     tags: ["important"],
+    dueDate: "2026-06-18",
   },
 ];
 

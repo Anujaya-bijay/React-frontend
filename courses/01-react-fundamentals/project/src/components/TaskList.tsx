@@ -8,6 +8,7 @@ export interface Task {
   completed: boolean;
   category: string;
   tags: string[];
+  dueDate?: string;
 }
 
 interface TaskListProps {
@@ -38,6 +39,7 @@ const defaultTasks: Task[] = [
     completed: false,
     category: "General",
     tags: ["sample"],
+    dueDate: "2026-06-25",
   },
   {
     id: 2,
@@ -47,6 +49,7 @@ const defaultTasks: Task[] = [
     completed: false,
     category: "Work",
     tags: ["office"],
+    dueDate: "2026-06-22",
   },
   {
     id: 3,
@@ -71,7 +74,8 @@ export default function TaskList({
   return (
     <section id="task-list">
       <h2 id="task-count">
-        {countText ?? `${tasks.length} Tasks`}
+        {countText ??
+          `${tasks.length} Tasks`}
       </h2>
 
       {tasks.map((task) => (
@@ -84,6 +88,7 @@ export default function TaskList({
           completed={task.completed}
           category={task.category}
           tags={task.tags}
+          dueDate={task.dueDate}
           onToggle={onToggle}
           onDelete={onDelete}
           onUpdateTask={onUpdateTask}

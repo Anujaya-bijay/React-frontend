@@ -2,7 +2,10 @@ interface FilterBarProps {
   filter: "all" | "active" | "completed";
 
   onFilterChange: (
-    filter: "all" | "active" | "completed"
+    filter:
+      | "all"
+      | "active"
+      | "completed"
   ) => void;
 
   searchTerm?: string;
@@ -15,7 +18,8 @@ interface FilterBarProps {
     | "recent"
     | "high-low"
     | "low-high"
-    | "alphabetical";
+    | "alphabetical"
+    | "due-date";
 
   onSortChange: (
     sort:
@@ -23,6 +27,7 @@ interface FilterBarProps {
       | "high-low"
       | "low-high"
       | "alphabetical"
+      | "due-date"
   ) => void;
 }
 
@@ -42,7 +47,9 @@ export default function FilterBar({
         placeholder="Search tasks"
         value={searchTerm}
         onChange={(e) =>
-          onSearchChange?.(e.target.value)
+          onSearchChange?.(
+            e.target.value
+          )
         }
       />
 
@@ -95,6 +102,7 @@ export default function FilterBar({
               | "high-low"
               | "low-high"
               | "alphabetical"
+              | "due-date"
           )
         }
       >
@@ -112,6 +120,10 @@ export default function FilterBar({
 
         <option value="alphabetical">
           Alphabetical
+        </option>
+
+        <option value="due-date">
+          Due Date (Soonest First)
         </option>
       </select>
     </div>

@@ -7,6 +7,7 @@ interface TaskCardProps {
   completed?: boolean;
   category?: string;
   tags?: string[];
+  dueDate?: string;
 
   onToggle?: (id: string | number) => void;
   onDelete?: (id: string | number) => void;
@@ -37,6 +38,7 @@ export default function TaskCard({
   completed,
   category = "General",
   tags = [],
+  dueDate,
   onToggle,
   onDelete,
   taskId,
@@ -76,6 +78,30 @@ export default function TaskCard({
     priority,
   ]);
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const due = dueDate
+    ? new Date(dueDate)
+    : null;
+
+  const isOverdue =
+    !!due &&
+    due < today &&
+    !completed;
+
+  const isDueToday =
+    !!due &&
+    due.toDateString() ===
+      today.toDateString();
+
+  const isDueSoon =
+    !!due &&
+    !isOverdue &&
+    !isDueToday &&
+    due.getTime() - today.getTime() <=
+      3 * 24 * 60 * 60 * 1000;
+
   const handleSave = () => {
     if (!editTitle.trim()) {
       return;
@@ -103,9 +129,14 @@ export default function TaskCard({
       data-completed={
         completed ? "true" : undefined
       }
+      data-overdue={
+        isOverdue ? "true" : undefined
+      }
       style={{
         background: completed
           ? "#e6ffe6"
+          : isOverdue
+          ? "#ffe6e6"
           : undefined,
         padding: "10px",
         marginBottom: "10px",
@@ -209,6 +240,19 @@ export default function TaskCard({
           <p id="task-category">
             Category: {category}
           </p>
+
+          {dueDate && (
+            <p id="task-due-date">
+              Due:{" "}
+              {new Date(
+                dueDate
+              ).toLocaleDateString()}
+            </p>
+          )}
+
+          {isOverdue && <p>Overdue</p>}
+          {isDueToday && <p>Due Today</p>}
+          {isDueSoon && <p>Due Soon</p>}
 
           <div id="task-tags">
             {tags.map((tag) => (

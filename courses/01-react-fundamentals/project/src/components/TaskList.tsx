@@ -1,4 +1,5 @@
 import TaskCard from "./TaskCard";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface Task {
   id: string | number;
@@ -43,8 +44,18 @@ const TaskList = ({
   onToggle,
   onDelete,
 }: TaskListProps) => {
+  const { theme } = useTheme();
+
   return (
-    <section id="task-list">
+    <section
+      id="task-list"
+      style={{
+        backgroundColor: theme === "dark" ? "#222" : "#fff",
+        color: theme === "dark" ? "#fff" : "#000",
+        padding: "15px",
+        borderRadius: "8px",
+      }}
+    >
       <p id="task-count">{tasks.length} Tasks</p>
 
       {tasks.map((task) => (

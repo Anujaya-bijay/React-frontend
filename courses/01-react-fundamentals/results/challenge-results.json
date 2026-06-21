@@ -21156,25 +21156,25 @@
   {
     "challengeId": "16-context-api-theme",
     "challengeName": "Context API - Theme Management",
-    "timestamp": "2026-06-21T14:28:49.920Z",
+    "timestamp": "2026-06-21T18:03:54.389Z",
     "scores": {
-      "functionalTests": 72.2,
+      "functionalTests": 93.1,
       "codeQuality": 100,
       "architecture": 100,
       "bestPractices": 100,
       "e2eTests": 0,
       "aiReview": 88
     },
-    "totalScore": 73.47,
-    "passed": false,
+    "totalScore": 80.785,
+    "passed": true,
     "errors": [],
     "warnings": [],
     "testResults": {
-      "score": 72.2,
+      "score": 93.1,
       "passed": false,
       "totalTests": 72,
-      "passedTests": 52,
-      "failedTests": 20,
+      "passedTests": 67,
+      "failedTests": 5,
       "details": [
         {
           "assertionResults": [
@@ -21187,7 +21187,7 @@
               "fullName": " Challenge 01: Static Task Display TaskCard should render title, description, and priority",
               "status": "passed",
               "title": "should render title, description, and priority",
-              "duration": 66,
+              "duration": 125,
               "failureMessages": []
             },
             {
@@ -21197,16 +21197,10 @@
                 "TaskCard"
               ],
               "fullName": " Challenge 01: Static Task Display TaskCard should use article with id task-card",
-              "status": "failed",
+              "status": "passed",
               "title": "should use article with id task-card",
-              "duration": 17,
-              "failureMessages": [
-                "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).toBeInTheDocument()\u001b[22m\n\n\u001b[31mreceived\u001b[39m value must be an HTMLElement or an SVGElement.\n"
-              ],
-              "location": {
-                "line": 22,
-                "column": 23
-              }
+              "duration": 9,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21215,16 +21209,10 @@
                 "TaskCard"
               ],
               "fullName": " Challenge 01: Static Task Display TaskCard should use semantic HTML (h2 for title)",
-              "status": "failed",
+              "status": "passed",
               "title": "should use semantic HTML (h2 for title)",
-              "duration": 6,
-              "failureMessages": [
-                "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).toHaveTextContent()\u001b[22m\n\n\u001b[31mreceived\u001b[39m value must be a Node.\n"
-              ],
-              "location": {
-                "line": 31,
-                "column": 18
-              }
+              "duration": 7,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21233,16 +21221,10 @@
                 "TaskList"
               ],
               "fullName": " Challenge 01: Static Task Display TaskList should render 3 TaskCards when no tasks prop",
-              "status": "failed",
+              "status": "passed",
               "title": "should render 3 TaskCards when no tasks prop",
-              "duration": 18,
-              "failureMessages": [
-                "expected +0 to be 3 // Object.is equality"
-              ],
-              "location": {
-                "line": 39,
-                "column": 28
-              }
+              "duration": 17,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21253,7 +21235,7 @@
               "fullName": " Challenge 01: Static Task Display TaskList should have section with id task-list",
               "status": "passed",
               "title": "should have section with id task-list",
-              "duration": 5,
+              "duration": 10,
               "failureMessages": []
             },
             {
@@ -21263,21 +21245,15 @@
                 "TaskList"
               ],
               "fullName": " Challenge 01: Static Task Display TaskList should display three different tasks",
-              "status": "failed",
+              "status": "passed",
               "title": "should display three different tasks",
-              "duration": 19,
-              "failureMessages": [
-                "Unable to find an element with the text: Task One. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<section\u001b[39m\n      \u001b[33mid\u001b[39m=\u001b[32m\"task-list\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<p>\u001b[39m\n        \u001b[0m0\u001b[0m\n        \u001b[0m Tasks\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33mid\u001b[39m=\u001b[32m\"task-count\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0m0\u001b[0m\n        \u001b[0m of \u001b[0m\n        \u001b[0m0\u001b[0m\n        \u001b[0m completed\u001b[0m\n      \u001b[36m</p>\u001b[39m\n    \u001b[36m</section>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m"
-              ],
-              "location": {
-                "line": 37,
-                "column": 19
-              }
+              "duration": 27,
+              "failureMessages": []
             }
           ],
-          "startTime": 1782052139811,
-          "endTime": 1782052139942,
-          "status": "failed",
+          "startTime": 1782065039652,
+          "endTime": 1782065039848,
+          "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-01.test.tsx"
         },
@@ -21291,7 +21267,7 @@
               "fullName": " Challenge 02: Dynamic Task Rendering should render tasks from tasks prop",
               "status": "passed",
               "title": "should render tasks from tasks prop",
-              "duration": 101,
+              "duration": 160,
               "failureMessages": []
             },
             {
@@ -21300,16 +21276,10 @@
                 "Challenge 02: Dynamic Task Rendering"
               ],
               "fullName": " Challenge 02: Dynamic Task Rendering should display task count with id task-count",
-              "status": "failed",
+              "status": "passed",
               "title": "should display task count with id task-count",
-              "duration": 37,
-              "failureMessages": [
-                "\u001b[2mexpect(\u001b[22m\u001b[31melement\u001b[39m\u001b[2m).toHaveAttribute(\u001b[22m\u001b[32m\u001b[32m\"id\"\u001b[32m\u001b[39m\u001b[2m, \u001b[22m\u001b[32m\u001b[32m\"task-count\"\u001b[32m\u001b[39m\u001b[2m) // element.getAttribute(\"id\") === \"task-count\"\u001b[22m\n\nExpected the element to have attribute:\n\u001b[32m  id=\"task-count\"\u001b[39m\nReceived:\n\u001b[31m  null\u001b[39m"
-              ],
-              "location": {
-                "line": 33,
-                "column": 21
-              }
+              "duration": 26,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21317,16 +21287,10 @@
                 "Challenge 02: Dynamic Task Rendering"
               ],
               "fullName": " Challenge 02: Dynamic Task Rendering should use unique keys when mapping (no duplicate keys)",
-              "status": "failed",
+              "status": "passed",
               "title": "should use unique keys when mapping (no duplicate keys)",
-              "duration": 23,
-              "failureMessages": [
-                "expected +0 to be 5 // Object.is equality"
-              ],
-              "location": {
-                "line": 39,
-                "column": 26
-              }
+              "duration": 14,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21336,13 +21300,13 @@
               "fullName": " Challenge 02: Dynamic Task Rendering should use map in TaskList",
               "status": "passed",
               "title": "should use map in TaskList",
-              "duration": 1,
+              "duration": 3,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052139820,
-          "endTime": 1782052139985,
-          "status": "failed",
+          "startTime": 1782065039535,
+          "endTime": 1782065039738,
+          "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-02.test.tsx"
         },
@@ -21356,7 +21320,7 @@
               "fullName": " Challenge 03: Adding New Tasks should have controlled title input",
               "status": "passed",
               "title": "should have controlled title input",
-              "duration": 456,
+              "duration": 502,
               "failureMessages": []
             },
             {
@@ -21367,7 +21331,7 @@
               "fullName": " Challenge 03: Adding New Tasks should have Add Task submit button",
               "status": "passed",
               "title": "should have Add Task submit button",
-              "duration": 91,
+              "duration": 76,
               "failureMessages": []
             },
             {
@@ -21378,7 +21342,7 @@
               "fullName": " Challenge 03: Adding New Tasks should call onAddTask with new task when title filled and submitted",
               "status": "passed",
               "title": "should call onAddTask with new task when title filled and submitted",
-              "duration": 350,
+              "duration": 316,
               "failureMessages": []
             },
             {
@@ -21389,7 +21353,7 @@
               "fullName": " Challenge 03: Adding New Tasks should show error when title is empty on submit",
               "status": "failed",
               "title": "should show error when title is empty on submit",
-              "duration": 128,
+              "duration": 111,
               "failureMessages": [
                 "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).toBeInTheDocument()\u001b[22m\n\n\u001b[31mreceived\u001b[39m value must be an HTMLElement or an SVGElement.\n"
               ],
@@ -21406,7 +21370,7 @@
               "fullName": " Challenge 03: Adding New Tasks should clear form after successful add",
               "status": "failed",
               "title": "should clear form after successful add",
-              "duration": 18,
+              "duration": 17,
               "failureMessages": [
                 "Cannot read properties of null (reading 'disabled')"
               ],
@@ -21423,12 +21387,12 @@
               "fullName": " Challenge 03: Adding New Tasks should use controlled inputs (value + onChange)",
               "status": "passed",
               "title": "should use controlled inputs (value + onChange)",
-              "duration": 1,
+              "duration": 2,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052140309,
-          "endTime": 1782052141354,
+          "startTime": 1782065039829,
+          "endTime": 1782065040854,
           "status": "failed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-03.test.tsx"
@@ -21441,16 +21405,10 @@
                 "Challenge 04: Task Completion Toggle"
               ],
               "fullName": " Challenge 04: Task Completion Toggle TaskCard should render checkbox when onToggle provided",
-              "status": "failed",
+              "status": "passed",
               "title": "TaskCard should render checkbox when onToggle provided",
-              "duration": 316,
-              "failureMessages": [
-                "Unable to find an accessible element with the role \"checkbox\"\n\nHere are the accessible roles:\n\n  article:\n\n  Name \"\":\n  \u001b[36m<article />\u001b[39m\n\n  --------------------------------------------------\n  heading:\n\n  Name \"T\":\n  \u001b[36m<h3 />\u001b[39m\n\n  --------------------------------------------------\n  button:\n\n  Name \"Mark Complete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Delete\":\n  \u001b[36m<button />\u001b[39m\n\n  --------------------------------------------------\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<article>\u001b[39m\n      \u001b[36m<h3>\u001b[39m\n        \u001b[0mT\u001b[0m\n      \u001b[36m</h3>\u001b[39m\n      \u001b[36m<p>\u001b[39m\n        \u001b[0mD\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<p>\u001b[39m\n        \u001b[0mPriority: \u001b[0m\n        \u001b[0mLow\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<p>\u001b[39m\n        \u001b[0mPending\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<button>\u001b[39m\n        \u001b[0mMark Complete\u001b[0m\n      \u001b[36m</button>\u001b[39m\n      \u001b[36m<button>\u001b[39m\n        \u001b[0mDelete\u001b[0m\n      \u001b[36m</button>\u001b[39m\n    \u001b[36m</article>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m"
-              ],
-              "location": {
-                "line": 37,
-                "column": 19
-              }
+              "duration": 282,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21458,16 +21416,10 @@
                 "Challenge 04: Task Completion Toggle"
               ],
               "fullName": " Challenge 04: Task Completion Toggle TaskCard should call onToggle when checkbox clicked",
-              "status": "failed",
+              "status": "passed",
               "title": "TaskCard should call onToggle when checkbox clicked",
-              "duration": 146,
-              "failureMessages": [
-                "Unable to find an accessible element with the role \"checkbox\"\n\nHere are the accessible roles:\n\n  article:\n\n  Name \"\":\n  \u001b[36m<article />\u001b[39m\n\n  --------------------------------------------------\n  heading:\n\n  Name \"T\":\n  \u001b[36m<h3 />\u001b[39m\n\n  --------------------------------------------------\n  button:\n\n  Name \"Mark Complete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Delete\":\n  \u001b[36m<button />\u001b[39m\n\n  --------------------------------------------------\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<article>\u001b[39m\n      \u001b[36m<h3>\u001b[39m\n        \u001b[0mT\u001b[0m\n      \u001b[36m</h3>\u001b[39m\n      \u001b[36m<p>\u001b[39m\n        \u001b[0mD\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<p>\u001b[39m\n        \u001b[0mPriority: \u001b[0m\n        \u001b[0mLow\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<p>\u001b[39m\n        \u001b[0mPending\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<button>\u001b[39m\n        \u001b[0mMark Complete\u001b[0m\n      \u001b[36m</button>\u001b[39m\n      \u001b[36m<button>\u001b[39m\n        \u001b[0mDelete\u001b[0m\n      \u001b[36m</button>\u001b[39m\n    \u001b[36m</article>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m"
-              ],
-              "location": {
-                "line": 37,
-                "column": 19
-              }
+              "duration": 131,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21475,16 +21427,10 @@
                 "Challenge 04: Task Completion Toggle"
               ],
               "fullName": " Challenge 04: Task Completion Toggle TaskCard should show strike-through when completed",
-              "status": "failed",
+              "status": "passed",
               "title": "TaskCard should show strike-through when completed",
-              "duration": 13,
-              "failureMessages": [
-                "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).toHaveStyle()\u001b[22m\n\n\u001b[31mreceived\u001b[39m value must be an HTMLElement or an SVGElement.\n"
-              ],
-              "location": {
-                "line": 38,
-                "column": 16
-              }
+              "duration": 57,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21492,16 +21438,10 @@
                 "Challenge 04: Task Completion Toggle"
               ],
               "fullName": " Challenge 04: Task Completion Toggle TaskCard should have data-completed or different style when completed",
-              "status": "failed",
+              "status": "passed",
               "title": "TaskCard should have data-completed or different style when completed",
-              "duration": 8,
-              "failureMessages": [
-                "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).toHaveAttribute()\u001b[22m\n\n\u001b[31mreceived\u001b[39m value must be an HTMLElement or an SVGElement.\n"
-              ],
-              "location": {
-                "line": 46,
-                "column": 21
-              }
+              "duration": 7,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21511,9 +21451,9 @@
               "fullName": " Challenge 04: Task Completion Toggle TaskList should pass onToggle to TaskCard when tasks provided",
               "status": "failed",
               "title": "TaskList should pass onToggle to TaskCard when tasks provided",
-              "duration": 259,
+              "duration": 130,
               "failureMessages": [
-                "Unable to find an accessible element with the role \"checkbox\"\n\nHere are the accessible roles:\n\n  article:\n\n  Name \"\":\n  \u001b[36m<article />\u001b[39m\n\n  Name \"\":\n  \u001b[36m<article />\u001b[39m\n\n  --------------------------------------------------\n  heading:\n\n  Name \"Task 1\":\n  \u001b[36m<h3 />\u001b[39m\n\n  Name \"Task 2\":\n  \u001b[36m<h3 />\u001b[39m\n\n  --------------------------------------------------\n  button:\n\n  Name \"Mark Complete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Delete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Mark Active\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Delete\":\n  \u001b[36m<button />\u001b[39m\n\n  --------------------------------------------------\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<section\u001b[39m\n      \u001b[33mid\u001b[39m=\u001b[32m\"task-list\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<p>\u001b[39m\n        \u001b[0m2\u001b[0m\n        \u001b[0m Tasks\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33mid\u001b[39m=\u001b[32m\"task-count\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0m1\u001b[0m\n        \u001b[0m of \u001b[0m\n        \u001b[0m2\u001b[0m\n        \u001b[0m completed\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<article>\u001b[39m\n        \u001b[36m<h3>\u001b[39m\n          \u001b[0mTask 1\u001b[0m\n        \u001b[36m</h3>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mD1\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPriority: \u001b[0m\n          \u001b[0mHigh\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPending\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mMark Complete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mDelete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</article>\u001b[39m\n      \u001b[36m<article>\u001b[39m\n        \u001b[36m<h3>\u001b[39m\n          \u001b[0mTask 2\u001b[0m\n        \u001b[36m</h3>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mD2\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPriority: \u001b[0m\n          \u001b[0mMedium\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mCompleted\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mMark Active\u001b[0m\n        \u001b[36m</button>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mDelete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</article>\u001b[39m\n    \u001b[36m</section>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m"
+                "Unable to find an element with the text: 1 of 2 completed. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<section\u001b[39m\n      \u001b[33mid\u001b[39m=\u001b[32m\"task-list\"\u001b[39m\n      \u001b[33mstyle\u001b[39m=\u001b[32m\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); padding: 15px; border-radius: 8px;\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33mid\u001b[39m=\u001b[32m\"task-count\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0m2\u001b[0m\n        \u001b[0m Tasks\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<article\u001b[39m\n        \u001b[33mdata-completed\u001b[39m=\u001b[32m\"false\"\u001b[39m\n        \u001b[33mid\u001b[39m=\u001b[32m\"task-card\"\u001b[39m\n        \u001b[33mstyle\u001b[39m=\u001b[32m\"background-color: rgb(249, 249, 249); color: rgb(0, 0, 0); padding: 15px; margin-bottom: 10px; border-radius: 8px;\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<h2\u001b[39m\n          \u001b[33mstyle\u001b[39m=\u001b[32m\"text-decoration: none;\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[0mTask 1\u001b[0m\n        \u001b[36m</h2>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mD1\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPriority: \u001b[0m\n          \u001b[0mHigh\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<input\u001b[39m\n          \u001b[33mtype\u001b[39m=\u001b[32m\"checkbox\"\u001b[39m\n        \u001b[36m/>\u001b[39m\n      \u001b[36m</article>\u001b[39m\n      \u001b[36m<article\u001b[39m\n        \u001b[33mdata-completed\u001b[39m=\u001b[32m\"true\"\u001b[39m\n        \u001b[33mid\u001b[39m=\u001b[32m\"task-card\"\u001b[39m\n        \u001b[33mstyle\u001b[39m=\u001b[32m\"background-color: rgb(249, 249, 249); color: rgb(0, 0, 0); padding: 15px; margin-bottom: 10px; border-radius: 8px;\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<h2\u001b[39m\n          \u001b[33mstyle\u001b[39m=\u001b[32m\"text-decoration: line-through;\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[0mTask 2\u001b[0m\n        \u001b[36m</h2>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mD2\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPriority: \u001b[0m\n          \u001b[0mMedium\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<input\u001b[39m\n          \u001b[33mchecked\u001b[39m=\u001b[32m\"\"\u001b[39m\n          \u001b[33mtype\u001b[39m=\u001b[32m\"checkbox\"\u001b[39m\n        \u001b[36m/>\u001b[39m\n      \u001b[36m</article>\u001b[39m\n    \u001b[36m</section>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m"
               ],
               "location": {
                 "line": 37,
@@ -21526,14 +21466,20 @@
                 "Challenge 04: Task Completion Toggle"
               ],
               "fullName": " Challenge 04: Task Completion Toggle count text should show X of Y completed format",
-              "status": "passed",
+              "status": "failed",
               "title": "count text should show X of Y completed format",
               "duration": 14,
-              "failureMessages": []
+              "failureMessages": [
+                "\u001b[2mexpect(\u001b[22m\u001b[31melement\u001b[39m\u001b[2m).toHaveTextContent()\u001b[22m\n\nExpected element to have text content:\n\u001b[32m  /1 of 2 completed/\u001b[39m\nReceived:\n\u001b[31m  2 Tasks\u001b[39m"
+              ],
+              "location": {
+                "line": 67,
+                "column": 21
+              }
             }
           ],
-          "startTime": 1782052140306,
-          "endTime": 1782052141062,
+          "startTime": 1782065039833,
+          "endTime": 1782065040455,
           "status": "failed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-04.test.tsx"
@@ -21548,7 +21494,7 @@
               "fullName": " Challenge 05: Task Deletion TaskCard should render Delete button when onDelete and id provided",
               "status": "passed",
               "title": "TaskCard should render Delete button when onDelete and id provided",
-              "duration": 256,
+              "duration": 235,
               "failureMessages": []
             },
             {
@@ -21557,16 +21503,10 @@
                 "Challenge 05: Task Deletion"
               ],
               "fullName": " Challenge 05: Task Deletion TaskCard should not render Delete button when onDelete not provided",
-              "status": "failed",
+              "status": "passed",
               "title": "TaskCard should not render Delete button when onDelete not provided",
-              "duration": 89,
-              "failureMessages": [
-                "\u001b[2mexpect(\u001b[22m\u001b[31melement\u001b[39m\u001b[2m).not.toBeInTheDocument()\u001b[22m\n\n\u001b[31mexpected document not to contain element, found <button>\n  Delete\n</button> instead\u001b[39m"
-              ],
-              "location": {
-                "line": 28,
-                "column": 67
-              }
+              "duration": 10,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21574,16 +21514,10 @@
                 "Challenge 05: Task Deletion"
               ],
               "fullName": " Challenge 05: Task Deletion TaskCard should call onDelete when Delete clicked and user confirms",
-              "status": "failed",
+              "status": "passed",
               "title": "TaskCard should call onDelete when Delete clicked and user confirms",
-              "duration": 135,
-              "failureMessages": [
-                "expected \"spy\" to be called at least once"
-              ],
-              "location": {
-                "line": 39,
-                "column": 28
-              }
+              "duration": 131,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21591,16 +21525,10 @@
                 "Challenge 05: Task Deletion"
               ],
               "fullName": " Challenge 05: Task Deletion TaskCard should not call onDelete when user cancels confirmation",
-              "status": "failed",
+              "status": "passed",
               "title": "TaskCard should not call onDelete when user cancels confirmation",
-              "duration": 76,
-              "failureMessages": [
-                "expected \"spy\" to be called at least once"
-              ],
-              "location": {
-                "line": 51,
-                "column": 28
-              }
+              "duration": 74,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21610,7 +21538,7 @@
               "fullName": " Challenge 05: Task Deletion TaskList should pass onDelete to TaskCard when provided",
               "status": "passed",
               "title": "TaskList should pass onDelete to TaskCard when provided",
-              "duration": 100,
+              "duration": 84,
               "failureMessages": []
             },
             {
@@ -21619,21 +21547,15 @@
                 "Challenge 05: Task Deletion"
               ],
               "fullName": " Challenge 05: Task Deletion TaskList should show countText in #task-count",
-              "status": "failed",
+              "status": "passed",
               "title": "TaskList should show countText in #task-count",
               "duration": 9,
-              "failureMessages": [
-                "\u001b[2mexpect(\u001b[22m\u001b[31melement\u001b[39m\u001b[2m).toHaveTextContent()\u001b[22m\n\nExpected element to have text content:\n\u001b[32m  2 Tasks\u001b[39m\nReceived:\n\u001b[31m  0 of 2 completed\u001b[39m"
-              ],
-              "location": {
-                "line": 66,
-                "column": 51
-              }
+              "failureMessages": []
             }
           ],
-          "startTime": 1782052140292,
-          "endTime": 1782052140957,
-          "status": "failed",
+          "startTime": 1782065039842,
+          "endTime": 1782065040386,
+          "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-05.test.tsx"
         },
@@ -21647,7 +21569,7 @@
               "fullName": " Challenge 06: Task Filtering FilterBar should render All, Active, Completed buttons",
               "status": "passed",
               "title": "FilterBar should render All, Active, Completed buttons",
-              "duration": 371,
+              "duration": 362,
               "failureMessages": []
             },
             {
@@ -21658,7 +21580,7 @@
               "fullName": " Challenge 06: Task Filtering FilterBar should have id=\"filter-bar\"",
               "status": "passed",
               "title": "FilterBar should have id=\"filter-bar\"",
-              "duration": 13,
+              "duration": 10,
               "failureMessages": []
             },
             {
@@ -21669,7 +21591,7 @@
               "fullName": " Challenge 06: Task Filtering FilterBar should highlight active filter",
               "status": "passed",
               "title": "FilterBar should highlight active filter",
-              "duration": 91,
+              "duration": 134,
               "failureMessages": []
             },
             {
@@ -21680,7 +21602,7 @@
               "fullName": " Challenge 06: Task Filtering FilterBar should call onFilterChange when button clicked",
               "status": "passed",
               "title": "FilterBar should call onFilterChange when button clicked",
-              "duration": 155,
+              "duration": 169,
               "failureMessages": []
             },
             {
@@ -21691,9 +21613,9 @@
               "fullName": " Challenge 06: Task Filtering TaskList with filtered tasks should show only matching tasks",
               "status": "failed",
               "title": "TaskList with filtered tasks should show only matching tasks",
-              "duration": 42,
+              "duration": 33,
               "failureMessages": [
-                "\u001b[2mexpect(\u001b[22m\u001b[31melement\u001b[39m\u001b[2m).toHaveTextContent()\u001b[22m\n\nExpected element to have text content:\n\u001b[32m  /2 of 3/\u001b[39m\nReceived:\n\u001b[31m  0 of 2 completed\u001b[39m"
+                "\u001b[2mexpect(\u001b[22m\u001b[31melement\u001b[39m\u001b[2m).toHaveTextContent()\u001b[22m\n\nExpected element to have text content:\n\u001b[32m  /2 of 3/\u001b[39m\nReceived:\n\u001b[31m  2 Tasks\u001b[39m"
               ],
               "location": {
                 "line": 46,
@@ -21701,8 +21623,8 @@
               }
             }
           ],
-          "startTime": 1782052140407,
-          "endTime": 1782052141079,
+          "startTime": 1782065040043,
+          "endTime": 1782065040751,
           "status": "failed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-06.test.tsx"
@@ -21717,7 +21639,7 @@
               "fullName": " Challenge 07: Priority-Based Sorting FilterBar or sort control should exist",
               "status": "passed",
               "title": "FilterBar or sort control should exist",
-              "duration": 67,
+              "duration": 55,
               "failureMessages": []
             },
             {
@@ -21726,16 +21648,10 @@
                 "Challenge 07: Priority-Based Sorting"
               ],
               "fullName": " Challenge 07: Priority-Based Sorting TaskList should render tasks in order provided",
-              "status": "failed",
+              "status": "passed",
               "title": "TaskList should render tasks in order provided",
-              "duration": 609,
-              "failureMessages": [
-                "Unable to find an accessible element with the role \"heading\"\n\nHere are the accessible roles:\n\n  article:\n\n  Name \"\":\n  \u001b[36m<article />\u001b[39m\n\n  Name \"\":\n  \u001b[36m<article />\u001b[39m\n\n  Name \"\":\n  \u001b[36m<article />\u001b[39m\n\n  --------------------------------------------------\n  heading:\n\n  Name \"Low\":\n  \u001b[36m<h3 />\u001b[39m\n\n  Name \"High\":\n  \u001b[36m<h3 />\u001b[39m\n\n  Name \"Medium\":\n  \u001b[36m<h3 />\u001b[39m\n\n  --------------------------------------------------\n  button:\n\n  Name \"Mark Complete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Delete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Mark Complete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Delete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Mark Complete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Delete\":\n  \u001b[36m<button />\u001b[39m\n\n  --------------------------------------------------\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<section\u001b[39m\n      \u001b[33mid\u001b[39m=\u001b[32m\"task-list\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<p>\u001b[39m\n        \u001b[0m3\u001b[0m\n        \u001b[0m Tasks\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33mid\u001b[39m=\u001b[32m\"task-count\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0m0\u001b[0m\n        \u001b[0m of \u001b[0m\n        \u001b[0m3\u001b[0m\n        \u001b[0m completed\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<article>\u001b[39m\n        \u001b[36m<h3>\u001b[39m\n          \u001b[0mLow\u001b[0m\n        \u001b[36m</h3>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mD\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPriority: \u001b[0m\n          \u001b[0mLow\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPending\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mMark Complete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mDelete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</article>\u001b[39m\n      \u001b[36m<article>\u001b[39m\n        \u001b[36m<h3>\u001b[39m\n          \u001b[0mHigh\u001b[0m\n        \u001b[36m</h3>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mD\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPriority: \u001b[0m\n          \u001b[0mHigh\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPending\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mMark Complete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mDelete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</article>\u001b[39m\n      \u001b[36m<article>\u001b[39m\n        \u001b[36m<h3>\u001b[39m\n          \u001b[0mMedium\u001b[0m\n        \u001b[36m</h3>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mD\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPriority: \u001b[0m\n          \u001b[0mMedium\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPending\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mMark Complete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mDelete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</article>\u001b[39m\n    \u001b[36m</section>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m"
-              ],
-              "location": {
-                "line": 37,
-                "column": 19
-              }
+              "duration": 251,
+              "failureMessages": []
             },
             {
               "ancestorTitles": [
@@ -21743,21 +21659,15 @@
                 "Challenge 07: Priority-Based Sorting"
               ],
               "fullName": " Challenge 07: Priority-Based Sorting When tasks sorted High to Low, High appears first",
-              "status": "failed",
+              "status": "passed",
               "title": "When tasks sorted High to Low, High appears first",
-              "duration": 341,
-              "failureMessages": [
-                "Unable to find an accessible element with the role \"heading\"\n\nHere are the accessible roles:\n\n  article:\n\n  Name \"\":\n  \u001b[36m<article />\u001b[39m\n\n  Name \"\":\n  \u001b[36m<article />\u001b[39m\n\n  Name \"\":\n  \u001b[36m<article />\u001b[39m\n\n  --------------------------------------------------\n  heading:\n\n  Name \"High\":\n  \u001b[36m<h3 />\u001b[39m\n\n  Name \"Medium\":\n  \u001b[36m<h3 />\u001b[39m\n\n  Name \"Low\":\n  \u001b[36m<h3 />\u001b[39m\n\n  --------------------------------------------------\n  button:\n\n  Name \"Mark Complete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Delete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Mark Complete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Delete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Mark Complete\":\n  \u001b[36m<button />\u001b[39m\n\n  Name \"Delete\":\n  \u001b[36m<button />\u001b[39m\n\n  --------------------------------------------------\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<section\u001b[39m\n      \u001b[33mid\u001b[39m=\u001b[32m\"task-list\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<p>\u001b[39m\n        \u001b[0m3\u001b[0m\n        \u001b[0m Tasks\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33mid\u001b[39m=\u001b[32m\"task-count\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0m0\u001b[0m\n        \u001b[0m of \u001b[0m\n        \u001b[0m3\u001b[0m\n        \u001b[0m completed\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<article>\u001b[39m\n        \u001b[36m<h3>\u001b[39m\n          \u001b[0mHigh\u001b[0m\n        \u001b[36m</h3>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mD\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPriority: \u001b[0m\n          \u001b[0mHigh\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPending\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mMark Complete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mDelete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</article>\u001b[39m\n      \u001b[36m<article>\u001b[39m\n        \u001b[36m<h3>\u001b[39m\n          \u001b[0mMedium\u001b[0m\n        \u001b[36m</h3>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mD\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPriority: \u001b[0m\n          \u001b[0mMedium\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPending\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mMark Complete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mDelete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</article>\u001b[39m\n      \u001b[36m<article>\u001b[39m\n        \u001b[36m<h3>\u001b[39m\n          \u001b[0mLow\u001b[0m\n        \u001b[36m</h3>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mD\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPriority: \u001b[0m\n          \u001b[0mLow\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mPending\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mMark Complete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n        \u001b[36m<button>\u001b[39m\n          \u001b[0mDelete\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</article>\u001b[39m\n    \u001b[36m</section>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m"
-              ],
-              "location": {
-                "line": 37,
-                "column": 19
-              }
+              "duration": 121,
+              "failureMessages": []
             }
           ],
-          "startTime": 1782052139993,
-          "endTime": 1782052141011,
-          "status": "failed",
+          "startTime": 1782065039742,
+          "endTime": 1782065040169,
+          "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-07.test.tsx"
         },
@@ -21771,7 +21681,7 @@
               "fullName": " Challenge 08: Task Editing TaskCard should render title and description",
               "status": "passed",
               "title": "TaskCard should render title and description",
-              "duration": 95,
+              "duration": 99,
               "failureMessages": []
             },
             {
@@ -21782,7 +21692,7 @@
               "fullName": " Challenge 08: Task Editing TaskList should pass tasks to TaskCard",
               "status": "passed",
               "title": "TaskList should pass tasks to TaskCard",
-              "duration": 29,
+              "duration": 22,
               "failureMessages": []
             },
             {
@@ -21793,12 +21703,12 @@
               "fullName": " Challenge 08: Task Editing TaskList should have id=\"task-list\"",
               "status": "passed",
               "title": "TaskList should have id=\"task-list\"",
-              "duration": 8,
+              "duration": 11,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052143799,
-          "endTime": 1782052143933,
+          "startTime": 1782065043686,
+          "endTime": 1782065043818,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-08.test.tsx"
@@ -21813,7 +21723,7 @@
               "fullName": " Challenge 09: Search Functionality FilterBar should exist for search integration",
               "status": "passed",
               "title": "FilterBar should exist for search integration",
-              "duration": 63,
+              "duration": 68,
               "failureMessages": []
             },
             {
@@ -21824,12 +21734,12 @@
               "fullName": " Challenge 09: Search Functionality TaskList should filter by provided tasks (search applied upstream)",
               "status": "passed",
               "title": "TaskList should filter by provided tasks (search applied upstream)",
-              "duration": 38,
+              "duration": 83,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052143866,
-          "endTime": 1782052143967,
+          "startTime": 1782065043755,
+          "endTime": 1782065043906,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-09.test.tsx"
@@ -21844,7 +21754,7 @@
               "fullName": " Challenge 10: useEffect - Local Storage Persistence App should render without crashing",
               "status": "passed",
               "title": "App should render without crashing",
-              "duration": 211,
+              "duration": 227,
               "failureMessages": []
             },
             {
@@ -21855,12 +21765,12 @@
               "fullName": " Challenge 10: useEffect - Local Storage Persistence App should have routes for challenge 10",
               "status": "passed",
               "title": "App should have routes for challenge 10",
-              "duration": 30,
+              "duration": 37,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052143931,
-          "endTime": 1782052144172,
+          "startTime": 1782065043748,
+          "endTime": 1782065044013,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-10.test.tsx"
@@ -21875,7 +21785,7 @@
               "fullName": " Challenge 11: useEffect - Debounced Search FilterBar should exist for search/debounce integration",
               "status": "passed",
               "title": "FilterBar should exist for search/debounce integration",
-              "duration": 31,
+              "duration": 37,
               "failureMessages": []
             },
             {
@@ -21886,12 +21796,12 @@
               "fullName": " Challenge 11: useEffect - Debounced Search TaskList should render tasks",
               "status": "passed",
               "title": "TaskList should render tasks",
-              "duration": 16,
+              "duration": 33,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052144727,
-          "endTime": 1782052144775,
+          "startTime": 1782065044435,
+          "endTime": 1782065044505,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-11.test.tsx"
@@ -21906,7 +21816,7 @@
               "fullName": " Challenge 12: Categories and Tags TaskCard should render title and priority",
               "status": "passed",
               "title": "TaskCard should render title and priority",
-              "duration": 66,
+              "duration": 115,
               "failureMessages": []
             },
             {
@@ -21917,12 +21827,12 @@
               "fullName": " Challenge 12: Categories and Tags TaskList should render tasks with extended shape",
               "status": "passed",
               "title": "TaskList should render tasks with extended shape",
-              "duration": 20,
+              "duration": 18,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052144064,
-          "endTime": 1782052144150,
+          "startTime": 1782065043973,
+          "endTime": 1782065044106,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-12.test.tsx"
@@ -21937,7 +21847,7 @@
               "fullName": " Challenge 13: Due Dates and Sorting TaskCard should render title",
               "status": "passed",
               "title": "TaskCard should render title",
-              "duration": 46,
+              "duration": 112,
               "failureMessages": []
             },
             {
@@ -21948,12 +21858,12 @@
               "fullName": " Challenge 13: Due Dates and Sorting TaskList should render tasks",
               "status": "passed",
               "title": "TaskList should render tasks",
-              "duration": 17,
+              "duration": 19,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052144401,
-          "endTime": 1782052144464,
+          "startTime": 1782065044127,
+          "endTime": 1782065044258,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-13.test.tsx"
@@ -21968,7 +21878,7 @@
               "fullName": " Challenge 14: Task Statistics Dashboard StatsPanel should have id=\"stats-panel\"",
               "status": "passed",
               "title": "StatsPanel should have id=\"stats-panel\"",
-              "duration": 45,
+              "duration": 53,
               "failureMessages": []
             },
             {
@@ -21979,7 +21889,7 @@
               "fullName": " Challenge 14: Task Statistics Dashboard StatsPanel should display total and completed",
               "status": "passed",
               "title": "StatsPanel should display total and completed",
-              "duration": 26,
+              "duration": 37,
               "failureMessages": []
             },
             {
@@ -21990,12 +21900,12 @@
               "fullName": " Challenge 14: Task Statistics Dashboard TaskList should render tasks",
               "status": "passed",
               "title": "TaskList should render tasks",
-              "duration": 13,
+              "duration": 49,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052139811,
-          "endTime": 1782052139895,
+          "startTime": 1782065039542,
+          "endTime": 1782065039681,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-14.test.tsx"
@@ -22010,7 +21920,7 @@
               "fullName": " Challenge 15: Component Organization with Props TaskCard should accept and render props",
               "status": "passed",
               "title": "TaskCard should accept and render props",
-              "duration": 61,
+              "duration": 62,
               "failureMessages": []
             },
             {
@@ -22025,8 +21935,8 @@
               "failureMessages": []
             }
           ],
-          "startTime": 1782052144581,
-          "endTime": 1782052144656,
+          "startTime": 1782065044357,
+          "endTime": 1782065044433,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-15.test.tsx"
@@ -22041,7 +21951,7 @@
               "fullName": " Challenge 16: Context API - Theme Management App should render without crashing",
               "status": "passed",
               "title": "App should render without crashing",
-              "duration": 69,
+              "duration": 79,
               "failureMessages": []
             },
             {
@@ -22052,12 +21962,12 @@
               "fullName": " Challenge 16: Context API - Theme Management App should have main content",
               "status": "passed",
               "title": "App should have main content",
-              "duration": 10,
+              "duration": 15,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052144974,
-          "endTime": 1782052145053,
+          "startTime": 1782065044752,
+          "endTime": 1782065044846,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-16.test.tsx"
@@ -22072,12 +21982,12 @@
               "fullName": " Challenge 17: Custom Hook - useLocalStorage App should render without crashing",
               "status": "passed",
               "title": "App should render without crashing",
-              "duration": 56,
+              "duration": 55,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052146012,
-          "endTime": 1782052146068,
+          "startTime": 1782065046110,
+          "endTime": 1782065046165,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-17.test.tsx"
@@ -22092,7 +22002,7 @@
               "fullName": " Challenge 18: useReducer - Complex State Management App should render",
               "status": "passed",
               "title": "App should render",
-              "duration": 81,
+              "duration": 85,
               "failureMessages": []
             },
             {
@@ -22103,12 +22013,12 @@
               "fullName": " Challenge 18: useReducer - Complex State Management TaskList should render tasks",
               "status": "passed",
               "title": "TaskList should render tasks",
-              "duration": 7,
+              "duration": 19,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052144830,
-          "endTime": 1782052144918,
+          "startTime": 1782065044721,
+          "endTime": 1782065044825,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-18.test.tsx"
@@ -22123,7 +22033,7 @@
               "fullName": " Challenge 19: Performance Optimization TaskCard should render",
               "status": "passed",
               "title": "TaskCard should render",
-              "duration": 35,
+              "duration": 72,
               "failureMessages": []
             },
             {
@@ -22134,12 +22044,12 @@
               "fullName": " Challenge 19: Performance Optimization TaskList should render TaskCards",
               "status": "passed",
               "title": "TaskList should render TaskCards",
-              "duration": 13,
+              "duration": 11,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052144702,
-          "endTime": 1782052144750,
+          "startTime": 1782065044390,
+          "endTime": 1782065044474,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-19.test.tsx"
@@ -22154,7 +22064,7 @@
               "fullName": " Challenge 20: Error Boundaries and Error Handling ErrorBoundary should render children when no error",
               "status": "passed",
               "title": "ErrorBoundary should render children when no error",
-              "duration": 48,
+              "duration": 65,
               "failureMessages": []
             },
             {
@@ -22165,7 +22075,7 @@
               "fullName": " Challenge 20: Error Boundaries and Error Handling ErrorBoundary should have fallback with id=\"error-boundary-fallback\" when error caught",
               "status": "passed",
               "title": "ErrorBoundary should have fallback with id=\"error-boundary-fallback\" when error caught",
-              "duration": 59,
+              "duration": 62,
               "failureMessages": []
             },
             {
@@ -22176,7 +22086,7 @@
               "fullName": " Challenge 20: Error Boundaries and Error Handling ErrorBoundary should have Retry button with id=\"error-retry\"",
               "status": "passed",
               "title": "ErrorBoundary should have Retry button with id=\"error-retry\"",
-              "duration": 26,
+              "duration": 47,
               "failureMessages": []
             },
             {
@@ -22187,12 +22097,12 @@
               "fullName": " Challenge 20: Error Boundaries and Error Handling Retry button should be clickable",
               "status": "passed",
               "title": "Retry button should be clickable",
-              "duration": 238,
+              "duration": 261,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052140299,
-          "endTime": 1782052140671,
+          "startTime": 1782065039888,
+          "endTime": 1782065040323,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-20.test.tsx"
@@ -22218,12 +22128,12 @@
               "fullName": " Challenge 21: React Router - Routing and Navigation TaskDetailPage should have back button with id task-detail-back",
               "status": "passed",
               "title": "TaskDetailPage should have back button with id task-detail-back",
-              "duration": 6,
+              "duration": 7,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052139839,
-          "endTime": 1782052139893,
+          "startTime": 1782065039531,
+          "endTime": 1782065039586,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-21.test.tsx"
@@ -22238,7 +22148,7 @@
               "fullName": " Challenge 22: Data Fetching - Loading and Error State FetchDemoView should show loading state initially or fetch from API",
               "status": "passed",
               "title": "FetchDemoView should show loading state initially or fetch from API",
-              "duration": 64,
+              "duration": 77,
               "failureMessages": []
             },
             {
@@ -22249,7 +22159,7 @@
               "fullName": " Challenge 22: Data Fetching - Loading and Error State FetchDemoView should have fetch-list when data is loaded",
               "status": "passed",
               "title": "FetchDemoView should have fetch-list when data is loaded",
-              "duration": 13,
+              "duration": 21,
               "failureMessages": []
             },
             {
@@ -22260,12 +22170,12 @@
               "fullName": " Challenge 22: Data Fetching - Loading and Error State FetchDemoView should show fetch-error when fetch fails",
               "status": "passed",
               "title": "FetchDemoView should show fetch-error when fetch fails",
-              "duration": 17,
+              "duration": 13,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052139811,
-          "endTime": 1782052139906,
+          "startTime": 1782065039521,
+          "endTime": 1782065039633,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-22.test.tsx"
@@ -22280,7 +22190,7 @@
               "fullName": " Challenge 23: useRef - Focus Management FilterBar should render search input with id search-input",
               "status": "passed",
               "title": "FilterBar should render search input with id search-input",
-              "duration": 56,
+              "duration": 51,
               "failureMessages": []
             },
             {
@@ -22291,12 +22201,12 @@
               "fullName": " Challenge 23: useRef - Focus Management FilterBar should be focusable for search input",
               "status": "passed",
               "title": "FilterBar should be focusable for search input",
-              "duration": 19,
+              "duration": 14,
               "failureMessages": []
             }
           ],
-          "startTime": 1782052143923,
-          "endTime": 1782052143998,
+          "startTime": 1782065043964,
+          "endTime": 1782065044030,
           "status": "passed",
           "message": "",
           "name": "D:/New folder/challenge-engine-react/courses/01-react-fundamentals/project/tests/challenge-23.test.tsx"
@@ -22393,7 +22303,7 @@
                           "workerIndex": 0,
                           "parallelIndex": 0,
                           "status": "failed",
-                          "duration": 2,
+                          "duration": 1,
                           "error": {
                             "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\anuja\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1208\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝",
                             "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\anuja\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1208\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝"
@@ -22406,7 +22316,7 @@
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2026-06-21T14:29:15.092Z",
+                          "startTime": "2026-06-21T18:04:13.848Z",
                           "annotations": [],
                           "attachments": []
                         },
@@ -22427,7 +22337,7 @@
                           "stdout": [],
                           "stderr": [],
                           "retry": 1,
-                          "startTime": "2026-06-21T14:29:16.420Z",
+                          "startTime": "2026-06-21T18:04:15.127Z",
                           "annotations": [],
                           "attachments": [
                             {
@@ -22454,7 +22364,7 @@
                           "stdout": [],
                           "stderr": [],
                           "retry": 2,
-                          "startTime": "2026-06-21T14:29:17.676Z",
+                          "startTime": "2026-06-21T18:04:16.352Z",
                           "annotations": [],
                           "attachments": []
                         }
@@ -22477,41 +22387,41 @@
     },
     "aiReviewResults": {
       "challengeId": "16-context-api-theme",
-      "timestamp": "2026-06-21T14:29:18.012Z",
+      "timestamp": "2026-06-21T18:04:16.679Z",
       "score": 88,
       "feedback": [],
       "strengths": [
         "The code is well-structured and follows a consistent naming convention.",
-        "The use of TypeScript and React Context API is well-implemented.",
-        "The code is well-commented and easy to understand."
+        "The use of TypeScript and functional components is a good practice.",
+        "The code is well-documented with clear and concise comments."
       ],
       "improvements": [
-        "The ThemeContext file is quite large and could be broken down into smaller, more manageable files.",
-        "Some of the CSS styles in the ChallengeList component could be extracted into a separate file for better organization.",
-        "The use of localStorage to persist the theme could be replaced with a more robust solution, such as a backend API or a library like Redux Persist."
+        "The `ThemeContext` file is quite large and could be broken down into smaller files for better organization.",
+        "The `useTheme` hook could be improved by adding a default value for the context value, so that it doesn't throw an error when the context is not provided.",
+        "The `toggleTheme` function could be improved by adding a check to see if the theme has actually changed before updating the local storage."
       ],
       "readability": 85,
       "maintainability": 90,
-      "overall": "The code is well-organized and follows best practices for React and TypeScript development. However, there are some areas that could be improved for better maintainability and scalability."
+      "overall": "The code is well-structured and well-documented, but could benefit from some improvements in organization and error handling. Overall, it's a good implementation of the Context API for theme management."
     },
     "aiResults": {
       "challengeId": "16-context-api-theme",
-      "timestamp": "2026-06-21T14:29:18.012Z",
+      "timestamp": "2026-06-21T18:04:16.679Z",
       "score": 88,
       "feedback": [],
       "strengths": [
         "The code is well-structured and follows a consistent naming convention.",
-        "The use of TypeScript and React Context API is well-implemented.",
-        "The code is well-commented and easy to understand."
+        "The use of TypeScript and functional components is a good practice.",
+        "The code is well-documented with clear and concise comments."
       ],
       "improvements": [
-        "The ThemeContext file is quite large and could be broken down into smaller, more manageable files.",
-        "Some of the CSS styles in the ChallengeList component could be extracted into a separate file for better organization.",
-        "The use of localStorage to persist the theme could be replaced with a more robust solution, such as a backend API or a library like Redux Persist."
+        "The `ThemeContext` file is quite large and could be broken down into smaller files for better organization.",
+        "The `useTheme` hook could be improved by adding a default value for the context value, so that it doesn't throw an error when the context is not provided.",
+        "The `toggleTheme` function could be improved by adding a check to see if the theme has actually changed before updating the local storage."
       ],
       "readability": 85,
       "maintainability": 90,
-      "overall": "The code is well-organized and follows best practices for React and TypeScript development. However, there are some areas that could be improved for better maintainability and scalability."
+      "overall": "The code is well-structured and well-documented, but could benefit from some improvements in organization and error handling. Overall, it's a good implementation of the Context API for theme management."
     }
   }
 ]

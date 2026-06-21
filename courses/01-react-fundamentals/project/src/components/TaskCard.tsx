@@ -1,3 +1,5 @@
+import { useTheme } from "../contexts/ThemeContext";
+
 interface TaskCardProps {
   id: string | number;
   title: string;
@@ -17,6 +19,8 @@ const TaskCard = ({
   onToggle,
   onDelete,
 }: TaskCardProps) => {
+  const { theme } = useTheme();
+
   const handleDelete = () => {
     if (onDelete && window.confirm("Are you sure?")) {
       onDelete(id);
@@ -24,10 +28,23 @@ const TaskCard = ({
   };
 
   return (
-    <article id="task-card" data-completed={completed}>
+    <article
+      id="task-card"
+      data-completed={completed}
+      style={{
+        backgroundColor:
+          theme === "dark" ? "#333" : "#f9f9f9",
+        color: theme === "dark" ? "#fff" : "#000",
+        padding: "15px",
+        marginBottom: "10px",
+        borderRadius: "8px",
+      }}
+    >
       <h2
         style={{
-          textDecoration: completed ? "line-through" : "none",
+          textDecoration: completed
+            ? "line-through"
+            : "none",
         }}
       >
         {title}

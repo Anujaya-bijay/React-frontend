@@ -1,145 +1,121 @@
-import { useState } from "react";
-import TaskList from "./TaskList";
+import { useEffect, useState } from "react";
 import TaskForm from "./TaskForm";
+import TaskList from "./TaskList";
 import FilterBar from "./FilterBar";
 import StatsPanel from "./StatsPanel";
-import type { Task } from "./TaskList";
 
-interface TaskAppProps {
-  tasks: Task[];
-  setTasks?: React.Dispatch<
-    React.SetStateAction<Task[]>
-  >;
-  showForm?: boolean;
-  onDelete?: (id: string | number) => void;
+interface Task {
+  id: string | number;
+  title: string;
+  description: string;
+  priority: string;
+  completed: boolean;
+  category?: string;
+  tags?: string[];
 }
 
-export default function TaskApp({
-  tasks,
-  setTasks,
-  showForm,
-  onDelete,
-}: TaskAppProps) {
-  const [sortOrder, setSortOrder] =
-    useState<
-      | "recent"
-      | "high-low"
-      | "low-high"
-      | "alphabetical"
-      | "due-date"
-    >("recent");
+const STORAGE_KEY = "tasks";
 
-  function handleAddTask(task: Task) {
-    if (setTasks) {
-      setTasks((prev) => [...prev, task]);
+const TaskApp = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [filter, setFilter] = useState("all");
+  const [search, setSearch] = useState("");
+
+  // Load tasks safely
+  useEffect(() => {
+    try {
+      const savedTasks = localStorage.getItem(STORAGE_KEY);
+
+      if (savedTasks) {
+        const parsedTasks = JSON.parse(savedTasks);
+
+        if (Array.isArray(parsedTasks)) {
+          setTasks(parsedTasks);
+        }
+      }
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
     }
-  }
+  }, []);
 
-  function handleToggle(
-    id: string | number
-  ) {
-    if (!setTasks) return;
+  // Save tasks safely
+  useEffect(() => {
+    if (tasks.length > 0) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    }
+  }, [tasks]);
 
-    setTasks((prev) =>
-      prev.map((task) =>
+  // Add task
+  const addTask = (task: Task) => {
+    setTasks((prevTasks) => [...prevTasks, task]);
+  };
+
+  // Delete task
+  const deleteTask = (id: string | number) => {
+    setTasks((prevTasks) =>
+      prevTasks.filter((task) => task.id !== id)
+    );
+  };
+
+  // Toggle complete
+  const toggleTask = (id: string | number) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
         task.id === id
           ? {
               ...task,
-              completed:
-                !task.completed,
+              completed: !task.completed,
             }
           : task
       )
     );
-  }
+  };
 
-  const sortedTasks = [...tasks];
+  // Clear search
+  const clearSearch = () => {
+    setSearch("");
+  };
 
-  if (sortOrder === "high-low") {
-    const order = {
-      High: 3,
-      Medium: 2,
-      Low: 1,
-    };
+  // Filter + Search
+  const filteredTasks = tasks.filter((task) => {
+    const matchesSearch =
+      task.title.toLowerCase().includes(search.toLowerCase()) ||
+      task.description.toLowerCase().includes(search.toLowerCase());
 
-    sortedTasks.sort(
-      (a, b) =>
-        order[
-          b.priority as keyof typeof order
-        ] -
-        order[
-          a.priority as keyof typeof order
-        ]
-    );
-  }
+    if (filter === "active") {
+      return !task.completed && matchesSearch;
+    }
 
-  if (sortOrder === "low-high") {
-    const order = {
-      Low: 1,
-      Medium: 2,
-      High: 3,
-    };
+    if (filter === "completed") {
+      return task.completed && matchesSearch;
+    }
 
-    sortedTasks.sort(
-      (a, b) =>
-        order[
-          a.priority as keyof typeof order
-        ] -
-        order[
-          b.priority as keyof typeof order
-        ]
-    );
-  }
-
-  if (sortOrder === "alphabetical") {
-    sortedTasks.sort((a, b) =>
-      a.title.localeCompare(b.title)
-    );
-  }
-
-  if (sortOrder === "due-date") {
-    sortedTasks.sort((a, b) => {
-      if (!a.dueDate && !b.dueDate)
-        return 0;
-      if (!a.dueDate) return 1;
-      if (!b.dueDate) return -1;
-
-      return (
-        new Date(
-          a.dueDate
-        ).getTime() -
-        new Date(
-          b.dueDate
-        ).getTime()
-      );
-    });
-  }
+    return matchesSearch;
+  });
 
   return (
     <div>
-      {showForm && (
-        <TaskForm
-          onAddTask={handleAddTask}
-        />
-      )}
+      <h1>Task Manager</h1>
+
+      <TaskForm onAddTask={addTask} />
 
       <FilterBar
-        filter="all"
-        onFilterChange={() => {}}
-        sortOrder={sortOrder}
-        onSortChange={setSortOrder}
+        search={search}
+        setSearch={setSearch}
+        clearSearch={clearSearch}
+        filter={filter}
+        onFilterChange={setFilter}
       />
 
-      <StatsPanel
-        tasks={sortedTasks}
-      />
+      <StatsPanel tasks={tasks} />
 
       <TaskList
-        tasks={sortedTasks}
-        onToggle={handleToggle}
-        onDelete={onDelete}
-        countText={`${tasks.length} Tasks`}
+        tasks={filteredTasks}
+        onDelete={deleteTask}
+        onToggle={toggleTask}
       />
     </div>
   );
-}
+};
+
+export default TaskApp;

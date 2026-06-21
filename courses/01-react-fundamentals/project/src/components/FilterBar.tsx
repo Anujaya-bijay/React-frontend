@@ -1,131 +1,62 @@
+import { FormInput, Button } from "./index";
+
 interface FilterBarProps {
-  filter: "all" | "active" | "completed";
-
-  onFilterChange: (
-    filter:
-      | "all"
-      | "active"
-      | "completed"
-  ) => void;
-
-  searchTerm?: string;
-
-  onSearchChange?: (
-    value: string
-  ) => void;
-
-  sortOrder:
-    | "recent"
-    | "high-low"
-    | "low-high"
-    | "alphabetical"
-    | "due-date";
-
-  onSortChange: (
-    sort:
-      | "recent"
-      | "high-low"
-      | "low-high"
-      | "alphabetical"
-      | "due-date"
-  ) => void;
+  search: string;
+  setSearch: (value: string) => void;
+  clearSearch: () => void;
+  filter: string;
+  onFilterChange: (filter: string) => void;
 }
 
-export default function FilterBar({
+const FilterBar = ({
+  search,
+  setSearch,
+  clearSearch,
   filter,
   onFilterChange,
-  searchTerm = "",
-  onSearchChange,
-  sortOrder,
-  onSortChange,
-}: FilterBarProps) {
+}: FilterBarProps) => {
   return (
     <div id="filter-bar">
-      <input
+      <FormInput
+        label="Search"
         id="search-input"
-        type="text"
-        placeholder="Search tasks"
-        value={searchTerm}
-        onChange={(e) =>
-          onSearchChange?.(
-            e.target.value
-          )
-        }
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search tasks..."
       />
 
-      <button
-        data-active={
-          filter === "all"
-            ? "true"
-            : "false"
-        }
-        onClick={() =>
-          onFilterChange("all")
-        }
+      <Button
+        variant={filter === "all" ? "primary" : "secondary"}
+        dataActive={filter === "all"}
+        onClick={() => onFilterChange("all")}
       >
         All
-      </button>
+      </Button>
 
-      <button
-        data-active={
-          filter === "active"
-            ? "true"
-            : "false"
-        }
-        onClick={() =>
-          onFilterChange("active")
-        }
+      <Button
+        variant={filter === "active" ? "primary" : "secondary"}
+        dataActive={filter === "active"}
+        onClick={() => onFilterChange("active")}
       >
         Active
-      </button>
+      </Button>
 
-      <button
-        data-active={
-          filter === "completed"
-            ? "true"
-            : "false"
-        }
-        onClick={() =>
-          onFilterChange("completed")
-        }
+      <Button
+        variant={filter === "completed" ? "primary" : "secondary"}
+        dataActive={filter === "completed"}
+        onClick={() => onFilterChange("completed")}
       >
         Completed
-      </button>
+      </Button>
 
-      <select
-        id="sort-order"
-        value={sortOrder}
-        onChange={(e) =>
-          onSortChange(
-            e.target.value as
-              | "recent"
-              | "high-low"
-              | "low-high"
-              | "alphabetical"
-              | "due-date"
-          )
-        }
+      <Button
+        variant="secondary"
+        onClick={clearSearch}
       >
-        <option value="recent">
-          Recently Added
-        </option>
-
-        <option value="high-low">
-          Priority: High to Low
-        </option>
-
-        <option value="low-high">
-          Priority: Low to High
-        </option>
-
-        <option value="alphabetical">
-          Alphabetical
-        </option>
-
-        <option value="due-date">
-          Due Date (Soonest First)
-        </option>
-      </select>
+        Clear Search
+      </Button>
     </div>
   );
-}
+};
+
+export default FilterBar;

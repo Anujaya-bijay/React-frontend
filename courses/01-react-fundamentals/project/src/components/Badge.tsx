@@ -1,7 +1,19 @@
+import React from "react";
+
 interface BadgeProps {
-  children?: React.ReactNode
+  children: React.ReactNode;
+  variant?: "priority" | "category" | "tag";
 }
 
-export default function Badge(_props: BadgeProps) {
-  return null
-}
+const Badge = ({
+  children,
+  variant = "tag",
+}: BadgeProps) => {
+  return (
+    <span className={`badge ${variant}`}>
+      {children}
+    </span>
+  );
+};
+
+export default Badge;

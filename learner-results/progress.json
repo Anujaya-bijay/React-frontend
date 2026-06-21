@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-06-21T18:04:18.367Z",
+  "lastUpdated": "2026-06-21T18:23:56.588Z",
   "pathway": {
     "name": "Modern React Engineer",
     "version": "1.0.0",
-    "overallScore": 26.7,
+    "overallScore": 26.6,
     "completionPercentage": 30.2,
     "badgeLevel": "none",
     "totalChallenges": 53,
@@ -13,7 +13,7 @@
     "01-react-fundamentals": {
       "courseId": "01-react-fundamentals",
       "courseName": "React Fundamentals",
-      "averageScore": 80.9,
+      "averageScore": 80.6,
       "completionPercentage": 69.6,
       "badgeLevel": "bronze",
       "totalChallenges": 23,
@@ -254,6 +254,21 @@
             "functionalTests": 93.1,
             "codeQuality": 100,
             "architecture": 100,
+            "bestPractices": 100,
+            "e2eTests": 0,
+            "aiReview": 88
+          }
+        },
+        "17-custom-hook-uselocalstorage": {
+          "challengeId": "17-custom-hook-uselocalstorage",
+          "challengeName": "Custom Hook - useLocalStorage",
+          "passed": false,
+          "score": 75.785,
+          "lastRun": "2026-06-21T18:23:32.879Z",
+          "scores": {
+            "functionalTests": 93.1,
+            "codeQuality": 100,
+            "architecture": 50,
             "bestPractices": 100,
             "e2eTests": 0,
             "aiReview": 88

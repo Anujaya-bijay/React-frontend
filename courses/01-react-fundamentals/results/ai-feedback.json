@@ -366,5 +366,28 @@
       "maintainability": 90,
       "overall": "The code is well-structured and well-documented, but could benefit from some improvements in organization and error handling. Overall, it's a good implementation of the Context API for theme management."
     }
+  },
+  {
+    "challengeId": "17-custom-hook-uselocalstorage",
+    "challengeName": "Custom Hook - useLocalStorage",
+    "aiReview": {
+      "challengeId": "17-custom-hook-uselocalstorage",
+      "timestamp": "2026-06-21T18:23:54.371Z",
+      "score": 88,
+      "feedback": [],
+      "strengths": [
+        "The use of a custom hook for local storage is a great way to encapsulate the logic and make it reusable.",
+        "The code is well-structured and easy to follow, with clear function names and variable names.",
+        "The use of TypeScript with type annotations is a good practice and helps with code maintainability."
+      ],
+      "improvements": [
+        "In the `useLocalStorage` hook, the `try-catch` block can be improved by handling the error more explicitly. Instead of just catching the error and returning the initial value, consider logging the error or throwing a custom error.",
+        "In the `App` component, the `useEffect` hook is used to save the tasks to local storage. However, this can be improved by using the `useLocalStorage` hook instead, which already handles the local storage logic.",
+        "In the `ThemeContext` component, the `useTheme` hook can be improved by adding a check to ensure that the context is not null before accessing its value."
+      ],
+      "readability": 85,
+      "maintainability": 90,
+      "overall": "The code is well-structured and follows good practices. However, there are some areas for improvement, such as handling errors more explicitly and using the custom hook for local storage consistently."
+    }
   }
 ]

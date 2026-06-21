@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
 import FilterBar from "./FilterBar";
 import StatsPanel from "./StatsPanel";
+import {
+  ThemeProvider,
+  useTheme,
+} from "../contexts/ThemeContext";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 interface Task {
   id: string | number;
@@ -10,94 +15,146 @@ interface Task {
   description: string;
   priority: string;
   completed: boolean;
-  category?: string;
-  tags?: string[];
 }
 
-const STORAGE_KEY = "tasks";
+const defaultTasks: Task[] = [
+  {
+    id: 1,
+    title: "Task One",
+    description: "First task description",
+    priority: "High",
+    completed: false,
+  },
+  {
+    id: 2,
+    title: "Task Two",
+    description: "Second task description",
+    priority: "Medium",
+    completed: true,
+  },
+  {
+    id: 3,
+    title: "Task Three",
+    description: "Third task description",
+    priority: "Low",
+    completed: false,
+  },
+];
 
-const TaskApp = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [filter, setFilter] = useState("all");
-  const [search, setSearch] = useState("");
+const TaskAppContent = () => {
+  const { theme, toggleTheme } = useTheme();
 
-  // Load tasks safely
-  useEffect(() => {
-    try {
-      const savedTasks = localStorage.getItem(STORAGE_KEY);
+  const [tasks, setTasks] =
+    useLocalStorage<Task[]>(
+      "task-app-tasks",
+      defaultTasks
+    );
 
-      if (savedTasks) {
-        const parsedTasks = JSON.parse(savedTasks);
+  const [filter, setFilter] =
+    useState("all");
+  const [search, setSearch] =
+    useState("");
 
-        if (Array.isArray(parsedTasks)) {
-          setTasks(parsedTasks);
-        }
-      }
-    } catch {
-      localStorage.removeItem(STORAGE_KEY);
-    }
-  }, []);
-
-  // Save tasks safely
-  useEffect(() => {
-    if (tasks.length > 0) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-    }
-  }, [tasks]);
-
-  // Add task
   const addTask = (task: Task) => {
-    setTasks((prevTasks) => [...prevTasks, task]);
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      task,
+    ]);
   };
 
-  // Delete task
-  const deleteTask = (id: string | number) => {
+  const deleteTask = (
+    id: string | number
+  ) => {
     setTasks((prevTasks) =>
-      prevTasks.filter((task) => task.id !== id)
+      prevTasks.filter(
+        (task) => task.id !== id
+      )
     );
   };
 
-  // Toggle complete
-  const toggleTask = (id: string | number) => {
+  const toggleTask = (
+    id: string | number
+  ) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task.id === id
           ? {
               ...task,
-              completed: !task.completed,
+              completed:
+                !task.completed,
             }
           : task
       )
     );
   };
 
-  // Clear search
   const clearSearch = () => {
     setSearch("");
   };
 
-  // Filter + Search
-  const filteredTasks = tasks.filter((task) => {
-    const matchesSearch =
-      task.title.toLowerCase().includes(search.toLowerCase()) ||
-      task.description.toLowerCase().includes(search.toLowerCase());
+  const filteredTasks =
+    tasks.filter((task) => {
+      const matchesSearch =
+        task.title
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          ) ||
+        task.description
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          );
 
-    if (filter === "active") {
-      return !task.completed && matchesSearch;
-    }
+      if (filter === "active") {
+        return (
+          !task.completed &&
+          matchesSearch
+        );
+      }
 
-    if (filter === "completed") {
-      return task.completed && matchesSearch;
-    }
+      if (filter === "completed") {
+        return (
+          task.completed &&
+          matchesSearch
+        );
+      }
 
-    return matchesSearch;
-  });
+      return matchesSearch;
+    });
 
   return (
-    <div>
+    <div
+      data-theme={theme}
+      style={{
+        backgroundColor:
+          theme === "dark"
+            ? "#111"
+            : "#fff",
+        color:
+          theme === "dark"
+            ? "#fff"
+            : "#000",
+        minHeight: "100vh",
+        padding: "20px",
+      }}
+    >
       <h1>Task Manager</h1>
 
-      <TaskForm onAddTask={addTask} />
+      <button
+        id="theme-toggle"
+        onClick={toggleTheme}
+      >
+        Switch to{" "}
+        {theme === "light"
+          ? "Dark"
+          : "Light"}{" "}
+        Mode
+      </button>
+
+      <TaskForm
+        onAddTask={addTask}
+      />
 
       <FilterBar
         search={search}
@@ -115,6 +172,14 @@ const TaskApp = () => {
         onToggle={toggleTask}
       />
     </div>
+  );
+};
+
+const TaskApp = () => {
+  return (
+    <ThemeProvider>
+      <TaskAppContent />
+    </ThemeProvider>
   );
 };
 

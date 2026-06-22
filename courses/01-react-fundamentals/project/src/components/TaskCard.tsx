@@ -1,11 +1,11 @@
 import { useTheme } from "../contexts/ThemeContext";
 
 interface TaskCardProps {
-  id: string | number;
+  id?: string | number;
   title: string;
   description: string;
   priority: string;
-  completed: boolean;
+  completed?: boolean;
   onToggle?: (id: string | number) => void;
   onDelete?: (id: string | number) => void;
 }
@@ -15,15 +15,20 @@ const TaskCard = ({
   title,
   description,
   priority,
-  completed,
+  completed = false,
   onToggle,
   onDelete,
 }: TaskCardProps) => {
   const { theme } = useTheme();
 
   const handleDelete = () => {
-    if (onDelete && window.confirm("Are you sure?")) {
-      onDelete(id);
+    if (onDelete && id !== undefined) {
+      const confirmed = window.confirm(
+        "Are you sure you want to delete this task?"
+      );
+      if (confirmed) {
+        onDelete(id);
+      }
     }
   };
 
@@ -31,20 +36,17 @@ const TaskCard = ({
     <article
       id="task-card"
       data-completed={completed}
-      style={{
-        backgroundColor:
-          theme === "dark" ? "#333" : "#f9f9f9",
-        color: theme === "dark" ? "#fff" : "#000",
-        padding: "15px",
-        marginBottom: "10px",
-        borderRadius: "8px",
-      }}
+      className={theme}
     >
+      <input
+        type="checkbox"
+        checked={completed}
+        onChange={() => id !== undefined && onToggle?.(id)}
+      />
+
       <h2
         style={{
-          textDecoration: completed
-            ? "line-through"
-            : "none",
+          textDecoration: completed ? "line-through" : "none",
         }}
       >
         {title}
@@ -53,18 +55,8 @@ const TaskCard = ({
       <p>{description}</p>
       <p>Priority: {priority}</p>
 
-      {onToggle && (
-        <input
-          type="checkbox"
-          checked={completed}
-          onChange={() => onToggle(id)}
-        />
-      )}
-
-      {onDelete && (
-        <button onClick={handleDelete}>
-          Delete
-        </button>
+      {onDelete && id !== undefined && (
+        <button onClick={handleDelete}>Delete</button>
       )}
     </article>
   );

@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-06-21T18:23:56.588Z",
+  "lastUpdated": "2026-06-22T05:51:33.237Z",
   "pathway": {
     "name": "Modern React Engineer",
     "version": "1.0.0",
-    "overallScore": 26.6,
+    "overallScore": 26.5,
     "completionPercentage": 30.2,
     "badgeLevel": "none",
     "totalChallenges": 53,
@@ -13,7 +13,7 @@
     "01-react-fundamentals": {
       "courseId": "01-react-fundamentals",
       "courseName": "React Fundamentals",
-      "averageScore": 80.6,
+      "averageScore": 80.4,
       "completionPercentage": 69.6,
       "badgeLevel": "bronze",
       "totalChallenges": 23,
@@ -232,11 +232,11 @@
         "15-component-organization": {
           "challengeId": "15-component-organization",
           "challengeName": "Component Organization with Props",
-          "passed": true,
-          "score": 80.785,
-          "lastRun": "2026-06-21T14:33:28.896Z",
+          "passed": false,
+          "score": 77.355,
+          "lastRun": "2026-06-22T05:06:09.156Z",
           "scores": {
-            "functionalTests": 93.1,
+            "functionalTests": 83.3,
             "codeQuality": 100,
             "architecture": 100,
             "bestPractices": 100,
@@ -263,12 +263,27 @@
           "challengeId": "17-custom-hook-uselocalstorage",
           "challengeName": "Custom Hook - useLocalStorage",
           "passed": false,
-          "score": 75.785,
-          "lastRun": "2026-06-21T18:23:32.879Z",
+          "score": 75.295,
+          "lastRun": "2026-06-22T05:51:13.032Z",
+          "scores": {
+            "functionalTests": 91.7,
+            "codeQuality": 100,
+            "architecture": 50,
+            "bestPractices": 100,
+            "e2eTests": 0,
+            "aiReview": 88
+          }
+        },
+        "18-usereducer-complex-state": {
+          "challengeId": "18-usereducer-complex-state",
+          "challengeName": "useReducer - Complex State Management",
+          "passed": true,
+          "score": 80.785,
+          "lastRun": "2026-06-21T18:37:48.811Z",
           "scores": {
             "functionalTests": 93.1,
             "codeQuality": 100,
-            "architecture": 50,
+            "architecture": 100,
             "bestPractices": 100,
             "e2eTests": 0,
             "aiReview": 88

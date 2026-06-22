@@ -26,8 +26,6 @@ const TaskForm = ({ onAddTask }: TaskFormProps) => {
       return;
     }
 
-    setError("");
-
     const newTask: Task = {
       id: Date.now(),
       title,
@@ -37,11 +35,10 @@ const TaskForm = ({ onAddTask }: TaskFormProps) => {
     };
 
     onAddTask(newTask);
-
-    // Reset form
     setTitle("");
     setDescription("");
     setPriority("Low");
+    setError("");
   };
 
   return (
@@ -51,9 +48,9 @@ const TaskForm = ({ onAddTask }: TaskFormProps) => {
         <input
           id="title"
           type="text"
+          placeholder="Enter task title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter task title"
         />
       </div>
 
@@ -62,9 +59,9 @@ const TaskForm = ({ onAddTask }: TaskFormProps) => {
         <input
           id="description"
           type="text"
+          placeholder="Enter task description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Enter task description"
         />
       </div>
 

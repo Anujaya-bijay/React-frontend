@@ -68,12 +68,12 @@ npm run review -- --challenge=01-static-task-display
 
 ## 📊 Progress Evidence
 
-*Auto-updated when you run review. Last run: 21/6/2026, 11:53:56 pm*
+*Auto-updated when you run review. Last run: 22/6/2026, 11:21:33 am*
 
 | Metric | Value |
 |--------|-------|
 | Challenges completed | 16 / 23 (69.6%) |
-| Average score | 80.6% |
+| Average score | 80.4% |
 
 | Challenge | Skills covered | Status |
 |-----------|----------------|--------|
@@ -91,10 +91,10 @@ npm run review -- --challenge=01-static-task-display
 | Categories and Tags | Complex state, Array fields, Multi-select/tags input, Nested data, Filtering by array membership | Passed |
 | Due Dates and Sorting | Date handling, Date objects and formatting, Date comparison, Overdue detection | Passed |
 | Task Statistics Dashboard | Computed statistics, useMemo, Performance optimization, Data aggregation | Passed |
-| Component Organization with Props | Component extraction, Props interface design, Single Responsibility, Reusability, Props destructuring | Passed |
+| Component Organization with Props | Component extraction, Props interface design, Single Responsibility, Reusability, Props destructuring | Not passed |
 | Context API - Theme Management | React Context, createContext, Provider, useContext, Global state, Custom hook | Passed |
 | Custom Hook - useLocalStorage | Custom hooks, Hook composition, Reusable logic, localStorage abstraction | Not passed |
-| useReducer - Complex State Management | useReducer, Reducer functions, Action objects, Dispatch pattern, Complex state logic | — |
+| useReducer - Complex State Management | useReducer, Reducer functions, Action objects, Dispatch pattern, Complex state logic | Passed |
 | Performance Optimization | React.memo, useCallback, useMemo, Re-render optimization | — |
 | Error Boundaries and Error Handling | Error boundaries, Class component, Error handling, Fallback UI, try-catch | — |
 | React Router - Routing and Navigation | React Router, Route, Link, useNavigate, useParams, URL-driven UI, Dynamic segments | — |

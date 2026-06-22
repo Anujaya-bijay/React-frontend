@@ -1,5 +1,4 @@
 import TaskCard from "./TaskCard";
-import { useTheme } from "../contexts/ThemeContext";
 
 interface Task {
   id: string | number;
@@ -19,23 +18,23 @@ const defaultTasks: Task[] = [
   {
     id: 1,
     title: "Task One",
-    description: "First task description",
+    description: "First task",
     priority: "High",
     completed: false,
   },
   {
     id: 2,
     title: "Task Two",
-    description: "Second task description",
+    description: "Second task",
     priority: "Medium",
-    completed: true,
+    completed: false,
   },
   {
     id: 3,
     title: "Task Three",
-    description: "Third task description",
+    description: "Third task",
     priority: "Low",
-    completed: false,
+    completed: true,
   },
 ];
 
@@ -44,19 +43,15 @@ const TaskList = ({
   onToggle,
   onDelete,
 }: TaskListProps) => {
-  const { theme } = useTheme();
+  const completedCount = tasks.filter(
+    (t) => t.completed
+  ).length;
 
   return (
-    <section
-      id="task-list"
-      style={{
-        backgroundColor: theme === "dark" ? "#222" : "#fff",
-        color: theme === "dark" ? "#fff" : "#000",
-        padding: "15px",
-        borderRadius: "8px",
-      }}
-    >
-      <p id="task-count">{tasks.length} Tasks</p>
+    <section id="task-list">
+      <p id="task-count">
+        {completedCount} of {tasks.length} completed
+      </p>
 
       {tasks.map((task) => (
         <TaskCard

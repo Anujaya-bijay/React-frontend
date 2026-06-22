@@ -1,21 +1,25 @@
 import { createContext, useContext } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
-const ThemeContext = createContext({
+interface ThemeContextType {
+  theme: string;
+  toggleTheme: () => void;
+}
+
+const ThemeContext = createContext<ThemeContextType>({
   theme: "light",
   toggleTheme: () => {},
 });
 
-export function ThemeProvider({ children }: any) {
-  const [theme, setTheme] = useLocalStorage<string>(
-    "task-app-theme",
-    "light"
-  );
+export function useTheme(): ThemeContextType {
+  return useContext(ThemeContext);
+}
+
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useLocalStorage<string>("task-app-theme", "light");
 
   const toggleTheme = () => {
-    setTheme((prev: string) =>
-      prev === "light" ? "dark" : "light"
-    );
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
   return (
@@ -23,8 +27,4 @@ export function ThemeProvider({ children }: any) {
       {children}
     </ThemeContext.Provider>
   );
-}
-
-export function useTheme() {
-  return useContext(ThemeContext);
 }

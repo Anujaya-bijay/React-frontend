@@ -5,42 +5,42 @@ import FilterBar from "./FilterBar";
 import StatsPanel from "./StatsPanel";
 
 interface Task {
-  id: string | number;
+  id: number;
   title: string;
   description: string;
   priority: string;
   completed: boolean;
-  category?: string;
-  tags?: string[];
 }
 
 interface TaskAppProps {
-  tasks: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  tasks?: Task[];
+  setTasks?: (value: Task[] | ((prev: Task[]) => Task[])) => void;
 }
 
-const TaskApp = ({ tasks, setTasks }: TaskAppProps) => {
+const DEFAULT_TASKS: Task[] = [];
+
+function TaskApp({ tasks: externalTasks, setTasks: externalSetTasks }: TaskAppProps) {
+  const [internalTasks, setInternalTasks] = useState<Task[]>(DEFAULT_TASKS);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
 
-  const addTask = (task: Task) => {
-    setTasks((prev) => [...prev, task]);
+  // Use external state if provided, otherwise fall back to internal state
+  const tasks = externalTasks ?? internalTasks;
+  const setTasks = externalSetTasks ?? setInternalTasks;
+
+  const addTask = (task: { title: string; description: string; priority: string; completed: boolean }) => {
+    const newTask: Task = { id: Date.now(), ...task };
+    setTasks((prev = []) => [...prev, newTask]);
   };
 
-  const toggleTask = (id: string | number) => {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id
-          ? { ...task, completed: !task.completed }
-          : task
-      )
+  const toggleTask = (id: number) => {
+    setTasks((prev = []) =>
+      prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
     );
   };
 
-  const deleteTask = (id: string | number) => {
-    setTasks((prev) =>
-      prev.filter((task) => task.id !== id)
-    );
+  const deleteTask = (id: number) => {
+    setTasks((prev = []) => prev.filter((t) => t.id !== id));
   };
 
   const filteredTasks = tasks.filter((task) => {
@@ -48,19 +48,13 @@ const TaskApp = ({ tasks, setTasks }: TaskAppProps) => {
       filter === "all" ||
       (filter === "completed" && task.completed) ||
       (filter === "active" && !task.completed);
-
-    const matchesSearch =
-      task.title
-        .toLowerCase()
-        .includes(search.toLowerCase());
-
+    const matchesSearch = task.title.toLowerCase().includes(search.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
   return (
     <div>
       <TaskForm onAddTask={addTask} />
-
       <FilterBar
         filter={filter}
         onFilterChange={setFilter}
@@ -68,16 +62,10 @@ const TaskApp = ({ tasks, setTasks }: TaskAppProps) => {
         setSearch={setSearch}
         clearSearch={() => setSearch("")}
       />
-
       <StatsPanel tasks={tasks} />
-
-      <TaskList
-        tasks={filteredTasks}
-        onToggle={toggleTask}
-        onDelete={deleteTask}
-      />
+      <TaskList tasks={filteredTasks} onToggle={toggleTask} onDelete={deleteTask} />
     </div>
   );
-};
+}
 
 export default TaskApp;

@@ -11,35 +11,17 @@ interface Task {
 }
 
 const INITIAL_TASKS: Task[] = [
-  {
-    id: 1,
-    title: "Learn React",
-    description: "Study hooks",
-    priority: "High",
-    completed: false,
-  },
-  {
-    id: 2,
-    title: "Build Project",
-    description: "Complete app",
-    priority: "Medium",
-    completed: false,
-  },
-  {
-    id: 3,
-    title: "Practice Coding",
-    description: "Solve DSA",
-    priority: "Low",
-    completed: false,
-  },
+  { id: 1, title: "Learn React", description: "Study hooks", priority: "High", completed: false },
+  { id: 2, title: "Build Project", description: "Complete app", priority: "Medium", completed: false },
+  { id: 3, title: "Practice Coding", description: "Solve DSA", priority: "Low", completed: false },
 ];
 
-function App() {
-  const [tasks, setTasks] = useLocalStorage<Task[]>(
-    "task-app-tasks",
-    INITIAL_TASKS
-  );
+function useTaskStorage() {
+  return useLocalStorage<Task[]>("task-app-tasks", INITIAL_TASKS);
+}
 
+function App() {
+  const [tasks, setTasks] = useTaskStorage();
   return (
     <ThemeProvider>
       <main>

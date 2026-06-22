@@ -68,12 +68,12 @@ npm run review -- --challenge=01-static-task-display
 
 ## 📊 Progress Evidence
 
-*Auto-updated when you run review. Last run: 22/6/2026, 11:21:33 am*
+*Auto-updated when you run review. Last run: 22/6/2026, 2:36:37 pm*
 
 | Metric | Value |
 |--------|-------|
-| Challenges completed | 16 / 23 (69.6%) |
-| Average score | 80.4% |
+| Challenges completed | 18 / 23 (78.3%) |
+| Average score | 80.8% |
 
 | Challenge | Skills covered | Status |
 |-----------|----------------|--------|
@@ -91,9 +91,9 @@ npm run review -- --challenge=01-static-task-display
 | Categories and Tags | Complex state, Array fields, Multi-select/tags input, Nested data, Filtering by array membership | Passed |
 | Due Dates and Sorting | Date handling, Date objects and formatting, Date comparison, Overdue detection | Passed |
 | Task Statistics Dashboard | Computed statistics, useMemo, Performance optimization, Data aggregation | Passed |
-| Component Organization with Props | Component extraction, Props interface design, Single Responsibility, Reusability, Props destructuring | Not passed |
+| Component Organization with Props | Component extraction, Props interface design, Single Responsibility, Reusability, Props destructuring | Passed |
 | Context API - Theme Management | React Context, createContext, Provider, useContext, Global state, Custom hook | Passed |
-| Custom Hook - useLocalStorage | Custom hooks, Hook composition, Reusable logic, localStorage abstraction | Not passed |
+| Custom Hook - useLocalStorage | Custom hooks, Hook composition, Reusable logic, localStorage abstraction | Passed |
 | useReducer - Complex State Management | useReducer, Reducer functions, Action objects, Dispatch pattern, Complex state logic | Passed |
 | Performance Optimization | React.memo, useCallback, useMemo, Re-render optimization | — |
 | Error Boundaries and Error Handling | Error boundaries, Class component, Error handling, Fallback UI, try-catch | — |

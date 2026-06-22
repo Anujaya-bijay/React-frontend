@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// Custom hook that behaves like useState but syncs with localStorage
 export function useLocalStorage<T>(
   key: string,
   initialValue: T
@@ -23,7 +22,7 @@ export function useLocalStorage<T>(
       setStoredValue(valueToStore);
       localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch {
-      // silently handle write errors
+      // silently handle errors
     }
   };
 

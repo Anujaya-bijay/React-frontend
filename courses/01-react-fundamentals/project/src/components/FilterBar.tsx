@@ -1,62 +1,49 @@
-import { FormInput, Button } from "./index";
+import React from "react";
 
 interface FilterBarProps {
-  search: string;
-  setSearch: (value: string) => void;
-  clearSearch: () => void;
-  filter: string;
-  onFilterChange: (filter: string) => void;
+  filter: "all" | "active" | "completed";
+  onFilterChange: (filter: "all" | "active" | "completed") => void;
+  search?: string;
+  setSearch?: (value: string) => void;
 }
 
-const FilterBar = ({
-  search,
-  setSearch,
-  clearSearch,
+function FilterBar({
   filter,
   onFilterChange,
-}: FilterBarProps) => {
+  search = "",
+  setSearch,
+}: FilterBarProps) {
   return (
     <div id="filter-bar">
-      <FormInput
-        label="Search"
+      <input
         id="search-input"
+        type="text"
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search tasks..."
+        onChange={(e) => setSearch?.(e.target.value)}
       />
 
-      <Button
-        variant={filter === "all" ? "primary" : "secondary"}
-        dataActive={filter === "all"}
+      <button
+        data-active={filter === "all" ? "true" : "false"}
         onClick={() => onFilterChange("all")}
       >
         All
-      </Button>
+      </button>
 
-      <Button
-        variant={filter === "active" ? "primary" : "secondary"}
-        dataActive={filter === "active"}
+      <button
+        data-active={filter === "active" ? "true" : "false"}
         onClick={() => onFilterChange("active")}
       >
         Active
-      </Button>
+      </button>
 
-      <Button
-        variant={filter === "completed" ? "primary" : "secondary"}
-        dataActive={filter === "completed"}
+      <button
+        data-active={filter === "completed" ? "true" : "false"}
         onClick={() => onFilterChange("completed")}
       >
         Completed
-      </Button>
-
-      <Button
-        variant="secondary"
-        onClick={clearSearch}
-      >
-        Clear Search
-      </Button>
+      </button>
     </div>
   );
-};
+}
 
-export default FilterBar;
+export default React.memo(FilterBar);

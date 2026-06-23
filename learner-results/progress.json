@@ -1,23 +1,23 @@
 {
-  "lastUpdated": "2026-06-23T04:43:37.964Z",
+  "lastUpdated": "2026-06-23T04:49:51.284Z",
   "pathway": {
     "name": "Modern React Engineer",
     "version": "1.0.0",
     "overallScore": 26.7,
-    "completionPercentage": 35.8,
+    "completionPercentage": 37.7,
     "badgeLevel": "none",
     "totalChallenges": 53,
-    "completedChallenges": 19
+    "completedChallenges": 20
   },
   "courses": {
     "01-react-fundamentals": {
       "courseId": "01-react-fundamentals",
       "courseName": "React Fundamentals",
-      "averageScore": 80.9,
-      "completionPercentage": 82.6,
+      "averageScore": 81,
+      "completionPercentage": 87,
       "badgeLevel": "silver",
       "totalChallenges": 23,
-      "completedChallenges": 19,
+      "completedChallenges": 20,
       "challenges": {
         "01-static-task-display": {
           "challengeId": "01-static-task-display",
@@ -233,10 +233,10 @@
           "challengeId": "15-component-organization",
           "challengeName": "Component Organization with Props",
           "passed": true,
-          "score": 80.295,
-          "lastRun": "2026-06-22T06:13:19.297Z",
+          "score": 81.59,
+          "lastRun": "2026-06-23T04:48:02.803Z",
           "scores": {
-            "functionalTests": 91.7,
+            "functionalTests": 95.4,
             "codeQuality": 100,
             "architecture": 100,
             "bestPractices": 100,
@@ -297,6 +297,21 @@
           "lastRun": "2026-06-23T04:43:15.550Z",
           "scores": {
             "functionalTests": 95.8,
+            "codeQuality": 100,
+            "architecture": 100,
+            "bestPractices": 100,
+            "e2eTests": 0,
+            "aiReview": 88
+          }
+        },
+        "20-error-boundaries": {
+          "challengeId": "20-error-boundaries",
+          "challengeName": "Error Boundaries and Error Handling",
+          "passed": true,
+          "score": 81.59,
+          "lastRun": "2026-06-23T04:49:28.845Z",
+          "scores": {
+            "functionalTests": 95.4,
             "codeQuality": 100,
             "architecture": 100,
             "bestPractices": 100,

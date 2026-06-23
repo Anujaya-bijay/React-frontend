@@ -3,6 +3,7 @@ import TaskList from "./TaskList";
 import TaskForm from "./TaskForm";
 import FilterBar from "./FilterBar";
 import StatsPanel from "./StatsPanel";
+import ErrorBoundary from "./ErrorBoundary";
 import type { Task } from "./TaskList";
 
 interface TaskAppProps {
@@ -120,18 +121,20 @@ export default function TaskApp({
         />
       )}
 
-      {sortedTasks.length === 0 ? (
-        <div id="filter-empty-message">No tasks found</div>
-      ) : (
-        <TaskList
-          tasks={sortedTasks}
-          onToggle={handleToggle}
-          onDelete={onDelete}
-          onUpdateTask={handleUpdateTask}
-          editingId={editingId}
-          setEditingId={setEditingId}
-        />
-      )}
+      <ErrorBoundary>
+        {sortedTasks.length === 0 ? (
+          <div id="filter-empty-message">No tasks found</div>
+        ) : (
+          <TaskList
+            tasks={sortedTasks}
+            onToggle={handleToggle}
+            onDelete={onDelete}
+            onUpdateTask={handleUpdateTask}
+            editingId={editingId}
+            setEditingId={setEditingId}
+          />
+        )}
+      </ErrorBoundary>
     </div>
   );
 }

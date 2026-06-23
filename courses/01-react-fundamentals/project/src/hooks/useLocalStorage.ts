@@ -7,8 +7,12 @@ export function useLocalStorage<T>(
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = localStorage.getItem(key);
-      return item ? (JSON.parse(item) as T) : initialValue;
+      if (!item) return initialValue;
+      return JSON.parse(item) as T;
     } catch {
+      if (process.env.NODE_ENV === "development") {
+        console.warn(`useLocalStorage: failed to parse key "${key}", using initial value.`);
+      }
       return initialValue;
     }
   });
@@ -20,9 +24,17 @@ export function useLocalStorage<T>(
           ? (value as (prev: T) => T)(storedValue)
           : value;
       setStoredValue(valueToStore);
-      localStorage.setItem(key, JSON.stringify(valueToStore));
+      try {
+        localStorage.setItem(key, JSON.stringify(valueToStore));
+      } catch {
+        if (process.env.NODE_ENV === "development") {
+          console.warn(`useLocalStorage: failed to write key "${key}" to localStorage.`);
+        }
+      }
     } catch {
-      // silently handle errors
+      if (process.env.NODE_ENV === "development") {
+        console.warn(`useLocalStorage: setValue failed for key "${key}".`);
+      }
     }
   };
 

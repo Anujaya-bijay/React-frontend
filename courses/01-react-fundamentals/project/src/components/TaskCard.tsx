@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from "react";
+import { Link } from "react-router-dom";
 
 interface TaskCardProps {
   id: string | number;
@@ -12,6 +13,7 @@ interface TaskCardProps {
   isEditing?: boolean;
   onEditStart?: () => void;
   onEditCancel?: () => void;
+  linkToTaskDetail?: boolean;
 }
 
 function TaskCard({
@@ -26,6 +28,7 @@ function TaskCard({
   isEditing,
   onEditStart,
   onEditCancel,
+  linkToTaskDetail,
 }: TaskCardProps) {
   const handleToggle = useCallback(() => {
     onToggle?.(id);
@@ -50,7 +53,13 @@ function TaskCard({
           onChange={handleToggle}
         />
       )}
-      <h2 style={titleStyle}>{title}</h2>
+      <h2 style={titleStyle}>
+        {linkToTaskDetail ? (
+          <Link to={`/challenge/21-react-router/task/${id}`}>{title}</Link>
+        ) : (
+          title
+        )}
+      </h2>
       <p>{description}</p>
       <p>Priority: {priority}</p>
       <p>Status: {completed ? "Completed" : "Pending"}</p>

@@ -19,6 +19,7 @@ interface TaskListProps {
   onUpdateTask?: (id: string | number, updates: { title: string; description: string; priority: string }) => void;
   editingId?: string | number | null;
   setEditingId?: (id: string | number | null) => void;
+  linkToTaskDetail?: boolean;
 }
 
 const defaultTasks: Task[] = [
@@ -35,6 +36,7 @@ function TaskList({
   onUpdateTask,
   editingId,
   setEditingId,
+  linkToTaskDetail,
 }: TaskListProps) {
   const completedCount = tasks.filter((task) => task.completed).length;
 
@@ -58,6 +60,7 @@ function TaskList({
           isEditing={editingId === task.id}
           onEditStart={setEditingId ? () => setEditingId(task.id) : undefined}
           onEditCancel={setEditingId ? () => setEditingId(null) : undefined}
+          linkToTaskDetail={linkToTaskDetail}
         />
       ))}
     </section>

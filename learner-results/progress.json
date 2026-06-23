@@ -1,23 +1,23 @@
 {
-  "lastUpdated": "2026-06-23T04:49:51.284Z",
+  "lastUpdated": "2026-06-23T04:56:26.784Z",
   "pathway": {
     "name": "Modern React Engineer",
     "version": "1.0.0",
     "overallScore": 26.7,
-    "completionPercentage": 37.7,
+    "completionPercentage": 39.6,
     "badgeLevel": "none",
     "totalChallenges": 53,
-    "completedChallenges": 20
+    "completedChallenges": 21
   },
   "courses": {
     "01-react-fundamentals": {
       "courseId": "01-react-fundamentals",
       "courseName": "React Fundamentals",
       "averageScore": 81,
-      "completionPercentage": 87,
+      "completionPercentage": 91.3,
       "badgeLevel": "silver",
       "totalChallenges": 23,
-      "completedChallenges": 20,
+      "completedChallenges": 21,
       "challenges": {
         "01-static-task-display": {
           "challengeId": "01-static-task-display",
@@ -312,6 +312,21 @@
           "lastRun": "2026-06-23T04:49:28.845Z",
           "scores": {
             "functionalTests": 95.4,
+            "codeQuality": 100,
+            "architecture": 100,
+            "bestPractices": 100,
+            "e2eTests": 0,
+            "aiReview": 88
+          }
+        },
+        "21-react-router": {
+          "challengeId": "21-react-router",
+          "challengeName": "React Router - Routing and Navigation",
+          "passed": true,
+          "score": 81.52,
+          "lastRun": "2026-06-23T04:55:56.506Z",
+          "scores": {
+            "functionalTests": 95.2,
             "codeQuality": 100,
             "architecture": 100,
             "bestPractices": 100,

@@ -13,6 +13,7 @@ interface TaskAppProps {
   onDelete?: (id: string | number) => void;
   showFilterBar?: boolean;
   showStatsPanel?: boolean;
+  linkToTaskDetail?: boolean;
 }
 
 export default function TaskApp({
@@ -22,6 +23,7 @@ export default function TaskApp({
   onDelete,
   showFilterBar,
   showStatsPanel,
+  linkToTaskDetail,
 }: TaskAppProps) {
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   const [sortOrder, setSortOrder] = useState("recent");
@@ -132,6 +134,7 @@ export default function TaskApp({
             onUpdateTask={handleUpdateTask}
             editingId={editingId}
             setEditingId={setEditingId}
+            linkToTaskDetail={linkToTaskDetail}
           />
         )}
       </ErrorBoundary>

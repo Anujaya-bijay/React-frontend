@@ -9,7 +9,7 @@ export default function TaskDetailPage() {
   const navigate = useNavigate();
   const [tasks] = useLocalStorage<Task[]>("task-app-tasks", INITIAL_TASKS);
 
-  const task = tasks.find((t) => String(t.id) === String(id));
+  const task = tasks.find((t: Task) => String(t.id) === String(id));
 
   return (
     <div id="task-detail-page">

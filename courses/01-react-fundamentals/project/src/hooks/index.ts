@@ -1,1 +1,1 @@
-export { default as ErrorBoundary } from "./ErrorBoundary";
+export { useLocalStorage } from "./useLocalStorage";

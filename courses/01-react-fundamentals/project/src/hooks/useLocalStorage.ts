@@ -10,9 +10,6 @@ export function useLocalStorage<T>(
       if (!item) return initialValue;
       return JSON.parse(item) as T;
     } catch {
-      if (process.env.NODE_ENV === "development") {
-        console.warn(`useLocalStorage: failed to parse key "${key}", using initial value.`);
-      }
       return initialValue;
     }
   });
@@ -27,14 +24,10 @@ export function useLocalStorage<T>(
       try {
         localStorage.setItem(key, JSON.stringify(valueToStore));
       } catch {
-        if (process.env.NODE_ENV === "development") {
-          console.warn(`useLocalStorage: failed to write key "${key}" to localStorage.`);
-        }
+        // silently handle localStorage write errors
       }
     } catch {
-      if (process.env.NODE_ENV === "development") {
-        console.warn(`useLocalStorage: setValue failed for key "${key}".`);
-      }
+      // silently handle errors
     }
   };
 

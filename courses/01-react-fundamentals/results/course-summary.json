@@ -1,11 +1,11 @@
 {
   "courseId": "01-react-fundamentals",
   "courseName": "React Fundamentals",
-  "lastUpdated": "2026-06-23T04:56:26.688Z",
+  "lastUpdated": "2026-06-24T04:47:59.885Z",
   "totalChallenges": 23,
-  "completedChallenges": 21,
+  "completedChallenges": 22,
   "averageScore": 81,
-  "completionPercentage": 91.3,
+  "completionPercentage": 95.7,
   "badgeLevel": "silver",
   "challengeResults": [
     {
@@ -133,6 +133,12 @@
       "challengeName": "React Router - Routing and Navigation",
       "score": 81.52,
       "passed": true
+    },
+    {
+      "challengeId": "22-data-fetching",
+      "challengeName": "Data Fetching - Loading and Error State",
+      "score": 81.73,
+      "passed": true
     }
   ],
   "skillStrengths": [
@@ -156,7 +162,8 @@
     "useReducer - Complex State Management",
     "Performance Optimization",
     "Error Boundaries and Error Handling",
-    "React Router - Routing and Navigation"
+    "React Router - Routing and Navigation",
+    "Data Fetching - Loading and Error State"
   ],
   "improvementAreas": []
 }

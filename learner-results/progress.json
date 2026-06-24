@@ -1,23 +1,23 @@
 {
-  "lastUpdated": "2026-06-23T04:56:26.784Z",
+  "lastUpdated": "2026-06-24T04:47:59.990Z",
   "pathway": {
     "name": "Modern React Engineer",
     "version": "1.0.0",
     "overallScore": 26.7,
-    "completionPercentage": 39.6,
+    "completionPercentage": 41.5,
     "badgeLevel": "none",
     "totalChallenges": 53,
-    "completedChallenges": 21
+    "completedChallenges": 22
   },
   "courses": {
     "01-react-fundamentals": {
       "courseId": "01-react-fundamentals",
       "courseName": "React Fundamentals",
       "averageScore": 81,
-      "completionPercentage": 91.3,
+      "completionPercentage": 95.7,
       "badgeLevel": "silver",
       "totalChallenges": 23,
-      "completedChallenges": 21,
+      "completedChallenges": 22,
       "challenges": {
         "01-static-task-display": {
           "challengeId": "01-static-task-display",
@@ -327,6 +327,21 @@
           "lastRun": "2026-06-23T04:55:56.506Z",
           "scores": {
             "functionalTests": 95.2,
+            "codeQuality": 100,
+            "architecture": 100,
+            "bestPractices": 100,
+            "e2eTests": 0,
+            "aiReview": 88
+          }
+        },
+        "22-data-fetching": {
+          "challengeId": "22-data-fetching",
+          "challengeName": "Data Fetching - Loading and Error State",
+          "passed": true,
+          "score": 81.73,
+          "lastRun": "2026-06-24T04:47:28.641Z",
+          "scores": {
+            "functionalTests": 95.8,
             "codeQuality": 100,
             "architecture": 100,
             "bestPractices": 100,

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState, AppDispatch } from './store'
 
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
+// Typed wrappers around react-redux's hooks: useAppSelector reads state produced by
+// the root reducer, and useAppDispatch sends actions through the store's middleware.
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
 export const useAppSelector = useSelector.withTypes<RootState>()

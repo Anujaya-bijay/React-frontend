@@ -1,4 +1,25 @@
-/** Stub: Complete Challenge 07 (Queries) per README. */
-export default function UsersList() {
-  return <div id="users-list">Complete Challenge 07 per README.</div>
-}
+import { useGetUsersQuery } from '../api/apiSlice';
+
+const UsersList = () => {
+  const { data, isLoading, error } = useGetUsersQuery();
+
+  if (isLoading) {
+    return <div data-testid="users-loading">Loading...</div>;
+  }
+
+  if (error) {
+    return <div data-testid="users-error">Error loading users</div>;
+  }
+
+  return (
+    <ul data-testid="users-list">
+      {data?.map((user) => (
+        <li key={user.id}>
+          {user.name} — {user.email} — {user.username}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export default UsersList;

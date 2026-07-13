@@ -1,7 +1,5 @@
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
-import { parse } from '@babel/parser';
-import traverse from '@babel/traverse';
 
 /**
  * File-specific pattern rules
@@ -55,10 +53,7 @@ export async function checkArchitecture(challengeMetadata, projectDir) {
 
     const fileContent = readFileSync(filePath, 'utf-8');
 
-    const fileResults = checkFileForPatterns(
-      fileContent,
-      patternsRequired
-    );
+    const fileResults = checkFileForPatterns(fileContent, patternsRequired);
 
     totalChecks += patternsRequired.length;
     passedChecks += fileResults.patternsFound.length;
@@ -73,7 +68,6 @@ export async function checkArchitecture(challengeMetadata, projectDir) {
     });
   }
 
-  // final score
   results.score = totalChecks > 0
     ? Math.round((passedChecks / totalChecks) * 100 * 10) / 10
     : 100;
@@ -84,112 +78,37 @@ export async function checkArchitecture(challengeMetadata, projectDir) {
 }
 
 /**
- * AST + fallback checker
+ * Regex-based checker (no traverse dependency — avoids ESM/CJS interop issues)
  */
 function checkFileForPatterns(content, patternsRequired) {
   const patternsFound = [];
   const patternsMissing = [];
 
-  try {
-    const ast = parse(content, {
-      sourceType: 'module',
-      plugins: ['typescript', 'jsx']
-    });
+  const regexChecks = {
+    createApi: /\bcreateApi\s*\(/,
+    fetchBaseQuery: /\bfetchBaseQuery\s*\(/,
+    useQueryHook: /\buse[A-Za-z0-9_]*Query\s*\(/i,
+    useMutationHook: /\buse[A-Za-z0-9_]*Mutation\s*\(/i,
+    optimisticUpdate: /\.updateQueryData\s*\(/,
+    mutation: /\bbuilder\s*\.\s*mutation\s*\(|(?:^|\s)mutation\s*[:(]/,
+    endpoints: /\bendpoints\s*:/,
+    providesTags: /\bprovidesTags\s*:/,
+    invalidatesTags: /\binvalidatesTags\s*:/,
+    tagTypes: /\btagTypes\s*:/,
+    onQueryStarted: /\bonQueryStarted\s*:/,
+    reducer: /\breducer\s*:/,
+    middleware: /\bmiddleware\s*:/,
+    Provider: /\bProvider\b/
+  };
 
-    const foundPatterns = new Set();
+  for (const pattern of patternsRequired) {
+    const regex = regexChecks[pattern];
+    const matched = regex ? regex.test(content) : content.includes(pattern);
 
-    traverse(ast, {
-      CallExpression(path) {
-        const callee = path.node.callee;
-
-        if (callee.name === 'createApi') {
-          foundPatterns.add('createApi');
-        }
-
-        if (callee.name === 'fetchBaseQuery') {
-          foundPatterns.add('fetchBaseQuery');
-        }
-
-        if (callee.name && /use.*Query/i.test(callee.name)) {
-          foundPatterns.add('useQueryHook');
-        }
-
-        if (callee.name && /use.*Mutation/i.test(callee.name)) {
-          foundPatterns.add('useMutationHook');
-        }
-
-        if (
-          callee.property &&
-          callee.property.name === 'updateQueryData'
-        ) {
-          foundPatterns.add('optimisticUpdate');
-        }
-
-        if (
-          callee.type === 'MemberExpression' &&
-          callee.object?.name === 'builder' &&
-          callee.property?.name === 'mutation'
-        ) {
-          foundPatterns.add('mutation');
-        }
-      },
-
-      ObjectProperty(path) {
-        const key = path.node.key?.name;
-
-        if (key === 'endpoints') {
-          foundPatterns.add('endpoints');
-        }
-
-        if (key === 'providesTags') {
-          foundPatterns.add('providesTags');
-        }
-
-        if (key === 'invalidatesTags') {
-          foundPatterns.add('invalidatesTags');
-        }
-
-        if (key === 'tagTypes') {
-          foundPatterns.add('tagTypes');
-        }
-
-        if (key === 'onQueryStarted') {
-          foundPatterns.add('onQueryStarted');
-        }
-
-        if (key === 'reducer') {
-          foundPatterns.add('reducer');
-        }
-
-        if (key === 'middleware') {
-          foundPatterns.add('middleware');
-        }
-      },
-
-      ObjectMethod(path) {
-        if (path.node.key?.name === 'mutation') {
-          foundPatterns.add('mutation');
-        }
-      }
-    });
-
-    // match required patterns
-    for (const pattern of patternsRequired) {
-      if (foundPatterns.has(pattern) || content.includes(pattern)) {
-        patternsFound.push(pattern);
-      } else {
-        patternsMissing.push(pattern);
-      }
-    }
-
-  } catch (error) {
-    // fallback: string matching
-    for (const pattern of patternsRequired) {
-      if (content.includes(pattern)) {
-        patternsFound.push(pattern);
-      } else {
-        patternsMissing.push(pattern);
-      }
+    if (matched) {
+      patternsFound.push(pattern);
+    } else {
+      patternsMissing.push(pattern);
     }
   }
 

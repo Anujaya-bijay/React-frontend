@@ -83,6 +83,22 @@ export const apiSlice = createApi({
           };
         }
       },
+      async onQueryStarted(newPost, { dispatch, queryFulfilled }) {
+        // Optimistically add the new post to the getPosts cache immediately,
+        // using a temporary id until the server responds with the real one.
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData('getPosts', undefined, (draft) => {
+            draft.push({ ...newPost, id: Date.now() });
+          })
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          // Server rejected the mutation — roll back the optimistic patch.
+          patchResult.undo();
+        }
+      },
       invalidatesTags: [{ type: 'Post', id: 'LIST' }],
     }),
   }),

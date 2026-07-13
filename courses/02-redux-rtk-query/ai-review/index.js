@@ -323,7 +323,7 @@ async function callGroqAPI(prompt) {
         }
       ],
       temperature: 0.3,
-      max_tokens: 800 // Trimmed from 1500 — output JSON schema is small; this was pushing requests over the 6000 TPM cap
+      max_tokens: 1100 // Enough headroom for a complete JSON response without truncation, while staying under the 6000 TPM cap
     })
   });
 
@@ -345,25 +345,29 @@ async function callGroqAPI(prompt) {
  * Parse AI response
  */
 function parseAIResponse(response) {
-  try {
-    // Try to extract JSON from response
-    const jsonMatch = response.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      const parsed = JSON.parse(jsonMatch[0]);
-      return {
-        readability: parsed.readability || 0,
-        maintainability: parsed.maintainability || 0,
-        strengths: parsed.strengths || [],
-        improvements: parsed.improvements || [],
-        overall: parsed.overall || '',
-        requirementCompliance: parsed.requirementCompliance || 0
-      };
+  const candidate = extractJSONCandidate(response);
+
+  if (candidate) {
+    try {
+      const parsed = JSON.parse(candidate);
+      return normalizeParsed(parsed);
+    } catch (error) {
+      // Attempt: response may have been truncated mid-object (e.g. hit max_tokens).
+      // Try trimming back to the last complete top-level field and closing the object.
+      const repaired = attemptJSONRepair(candidate);
+      if (repaired) {
+        try {
+          const parsed = JSON.parse(repaired);
+          return normalizeParsed(parsed);
+        } catch (error2) {
+          // fall through to manual extraction below
+        }
+      }
     }
-  } catch (error) {
-    // Fallback parsing
   }
 
-  // Fallback: extract information manually
+  // Fallback: extract information manually from plain text.
+  // Only used if the model didn't return valid/repairable JSON at all.
   const readabilityMatch = response.match(/readability[:\s]+(\d+)/i);
   const maintainabilityMatch = response.match(/maintainability[:\s]+(\d+)/i);
   const complianceMatch = response.match(/requirementCompliance[:\s]+(\d+)/i);
@@ -376,6 +380,110 @@ function parseAIResponse(response) {
     improvements: extractList(response, /improvements?/i),
     overall: response.substring(0, 500)
   };
+}
+
+/**
+ * Normalize a successfully-parsed JSON object into the results shape.
+ */
+function normalizeParsed(parsed) {
+  return {
+    readability: parsed.readability || 0,
+    maintainability: parsed.maintainability || 0,
+    strengths: Array.isArray(parsed.strengths) ? parsed.strengths : [],
+    improvements: Array.isArray(parsed.improvements) ? parsed.improvements : [],
+    overall: parsed.overall || '',
+    requirementCompliance: parsed.requirementCompliance || 0
+  };
+}
+
+/**
+ * Extract the JSON object from a model response, robust to models that:
+ * - wrap the JSON in ```json ... ``` fences (most common)
+ * - include prose before/after the JSON, including prose that itself
+ *   contains stray '{' or '}' characters (e.g. a code snippet showing
+ *   object destructuring like `const { id, name } = arg;`), which breaks
+ *   a naive "first { to last }" greedy match.
+ */
+function extractJSONCandidate(response) {
+  // Attempt 1: explicit ```json ... ``` fence — most reliable signal, since
+  // the model is deliberately marking this block as the JSON payload.
+  const fenceMatch = response.match(/```json\s*([\s\S]*?)```/i);
+  if (fenceMatch) return fenceMatch[1].trim();
+
+  // Attempt 2: any ``` ... ``` fence whose content looks like an object.
+  const anyFenceMatch = response.match(/```\s*(\{[\s\S]*?\})\s*```/);
+  if (anyFenceMatch) return anyFenceMatch[1].trim();
+
+  // Attempt 3: no fences present. Search backwards from the last '}' for a
+  // '{' that yields a valid, parseable JSON object. This avoids matching an
+  // earlier stray '{' from unrelated prose, since we accept the first
+  // (rightmost) candidate that actually parses.
+  const lastBraceIndex = response.lastIndexOf('}');
+  if (lastBraceIndex !== -1) {
+    for (let i = lastBraceIndex; i >= 0; i--) {
+      if (response[i] === '{') {
+        const candidate = response.substring(i, lastBraceIndex + 1);
+        try {
+          JSON.parse(candidate);
+          return candidate;
+        } catch (e) {
+          // keep searching further back
+        }
+      }
+    }
+  }
+
+  // Last resort: naive greedy match (may be wrong if prose contains braces,
+  // but better than nothing — attemptJSONRepair gets a chance after this).
+  const naive = response.match(/\{[\s\S]*\}/);
+  return naive ? naive[0] : null;
+}
+
+/**
+ * Try to repair a truncated JSON object string by dropping the incomplete
+ * trailing field/array and re-closing brackets. Returns null if it can't
+ * produce something parseable.
+ */
+function attemptJSONRepair(raw) {
+  let str = raw.trim();
+
+  // Cut back to the last comma or closing bracket that could end a valid field,
+  // then close off any open arrays/objects.
+  const lastGoodCloses = ['"', '}', ']'];
+  let cutIndex = -1;
+  for (let i = str.length - 1; i >= 0; i--) {
+    if (lastGoodCloses.includes(str[i])) {
+      cutIndex = i;
+      break;
+    }
+  }
+  if (cutIndex === -1) return null;
+
+  str = str.substring(0, cutIndex + 1);
+
+  // Count unclosed brackets/braces and append matching closers.
+  let openBraces = 0;
+  let openBrackets = 0;
+  let inString = false;
+  let prevChar = '';
+  for (const ch of str) {
+    if (ch === '"' && prevChar !== '\\') inString = !inString;
+    if (!inString) {
+      if (ch === '{') openBraces++;
+      else if (ch === '}') openBraces--;
+      else if (ch === '[') openBrackets++;
+      else if (ch === ']') openBrackets--;
+    }
+    prevChar = ch;
+  }
+
+  // If we ended mid-string, close the string first
+  if (inString) str += '"';
+  // Trim any trailing comma before closing
+  str = str.replace(/,\s*$/, '');
+  str += ']'.repeat(Math.max(0, openBrackets)) + '}'.repeat(Math.max(0, openBraces));
+
+  return str;
 }
 
 /**
@@ -395,8 +503,12 @@ function extractList(text, keyword) {
       inList = true;
       continue;
     }
-    if (inList && (line.trim().startsWith('-') || line.trim().match(/^\d+\./) || line.trim().startsWith('"'))) {
-      let item = line.trim().replace(/^[-•\d."]+\s*/, '').replace(/^["']|["']$/g, '');
+    const trimmedLine = line.trim();
+    // Skip lines that look like raw JSON key-value pairs (e.g. "readability": 80,)
+    // rather than actual bullet content — these can leak in from a malformed AI response.
+    const looksLikeJSONField = /^"[a-zA-Z]+"\s*:/.test(trimmedLine);
+    if (inList && !looksLikeJSONField && (trimmedLine.startsWith('-') || trimmedLine.match(/^\d+\./) || trimmedLine.startsWith('"'))) {
+      let item = trimmedLine.replace(/^[-•\d."]+\s*/, '').replace(/^["']|["']$/g, '');
       if (item) {
         list.push(item);
         if (list.length >= 5) break; // Allow up to 5 items

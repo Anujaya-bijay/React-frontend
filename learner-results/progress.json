@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026-07-13T18:47:34.151Z",
+  "lastUpdated": "2026-07-13T19:24:18.628Z",
   "pathway": {
     "name": "Modern React Engineer",
     "version": "1.0.0",
     "overallScore": 54,
-    "completionPercentage": 62.3,
+    "completionPercentage": 64.2,
     "badgeLevel": "none",
     "totalChallenges": 53,
-    "completedChallenges": 33
+    "completedChallenges": 34
   },
   "courses": {
     "01-react-fundamentals": {
@@ -370,10 +370,10 @@
       "courseId": "02-redux-rtk-query",
       "courseName": "Redux & RTK Query",
       "averageScore": 82.4,
-      "completionPercentage": 76.9,
+      "completionPercentage": 84.6,
       "badgeLevel": "silver",
       "totalChallenges": 13,
-      "completedChallenges": 10,
+      "completedChallenges": 11,
       "challenges": {
         "01-store-setup": {
           "challengeId": "01-store-setup",
@@ -523,6 +523,21 @@
             "bestPractices": 100,
             "e2eTests": 0,
             "aiReview": 79
+          }
+        },
+        "11-api-local-state": {
+          "challengeId": "11-api-local-state",
+          "challengeName": "API and Local State Together",
+          "passed": true,
+          "score": 82.3,
+          "lastRun": "2026-07-13T19:23:58.591Z",
+          "scores": {
+            "functionalTests": 100,
+            "codeQuality": 100,
+            "architecture": 100,
+            "bestPractices": 100,
+            "e2eTests": 0,
+            "aiReview": 82
           }
         }
       }

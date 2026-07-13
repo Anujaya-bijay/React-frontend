@@ -1,12 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { mockApi } from './mockServer';
-
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  username: string;
-}
+import { mockApi, type User, type Post } from './mockServer';
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -36,10 +29,10 @@ export const apiSlice = createApi({
           : [{ type: 'User' as const, id: 'LIST' }],
     }),
 
-    addUser: builder.mutation<User, Partial<User>>({
+    addUser: builder.mutation<User, Omit<User, 'id'>>({
       queryFn: async (newUser) => {
         try {
-          const user = await mockApi.addUser(newUser);
+          const user = await mockApi.createUser(newUser);
           return { data: user };
         } catch (error: unknown) {
           return {
@@ -52,7 +45,52 @@ export const apiSlice = createApi({
       },
       invalidatesTags: [{ type: 'User', id: 'LIST' }],
     }),
+
+    getPosts: builder.query<Post[], void>({
+      queryFn: async () => {
+        try {
+          const posts = await mockApi.getPosts();
+          return { data: posts };
+        } catch (error: unknown) {
+          return {
+            error: {
+              status: 'CUSTOM_ERROR',
+              error: error instanceof Error ? error.message : 'Failed to fetch posts',
+            },
+          };
+        }
+      },
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Post' as const, id })),
+              { type: 'Post' as const, id: 'LIST' },
+            ]
+          : [{ type: 'Post' as const, id: 'LIST' }],
+    }),
+
+    addPost: builder.mutation<Post, Omit<Post, 'id'>>({
+      queryFn: async (newPost) => {
+        try {
+          const post = await mockApi.createPost(newPost);
+          return { data: post };
+        } catch (error: unknown) {
+          return {
+            error: {
+              status: 'CUSTOM_ERROR',
+              error: error instanceof Error ? error.message : 'Failed to add post',
+            },
+          };
+        }
+      },
+      invalidatesTags: [{ type: 'Post', id: 'LIST' }],
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useAddUserMutation } = apiSlice;
+export const {
+  useGetUsersQuery,
+  useAddUserMutation,
+  useGetPostsQuery,
+  useAddPostMutation,
+} = apiSlice;

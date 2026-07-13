@@ -40,6 +40,14 @@ const MODEL = 'llama-3.1-8b-instant';
 // File extensions to include in code review
 const CODE_EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx'];
 
+// Token-budget limits (Groq free tier: 6000 TPM for this model).
+// Groq counts prompt tokens + max_tokens (completion budget) together,
+// so both the prompt content AND max_tokens below need to stay tight.
+const MAX_CHARS_PER_FILE = 2000;        // was 8000
+const MAX_TOTAL_CONTEXT_CHARS = 6000;   // hard cap across all files combined
+const MAX_REQUIREMENTS_CHARS = 1000;    // was 2000
+const MAX_INSTRUCTIONS_CHARS = 1200;    // was 3000
+
 /**
  * Reviews code using AI for qualitative feedback
  * @param {string} challengeId - Challenge ID
@@ -93,7 +101,7 @@ export async function reviewCodeWithAI(challengeId, challengeMetadata, projectDi
         if (CODE_EXTENSIONS.includes(extname(fullPath)) && content.trim().length > 0) {
           codeFiles.push({
             file: filePath,
-            content: content.substring(0, 8000) // Limit to 8KB per file
+            content: content.substring(0, MAX_CHARS_PER_FILE)
           });
         }
       } else {
@@ -185,7 +193,7 @@ function discoverAdditionalFiles(challengeMetadata, projectDir) {
                   if (content.trim().length > 0) {
                     additionalFiles.push({
                       file: relativePath,
-                      content: content.substring(0, 8000)
+                      content: content.substring(0, MAX_CHARS_PER_FILE)
                     });
                   }
                 } catch (e) {
@@ -217,19 +225,25 @@ function buildReviewPrompt(challengeId, challengeMetadata, instructions, require
     `File: ${f.file}\n\`\`\`typescript\n${f.content}\n\`\`\``
   ).join('\n\n---\n\n');
 
+  // Cap total combined code context so the whole prompt stays under the token budget,
+  // regardless of how many files the challenge has.
+  const truncatedCodeContext = codeContext.length > MAX_TOTAL_CONTEXT_CHARS
+    ? codeContext.substring(0, MAX_TOTAL_CONTEXT_CHARS) + '\n\n... [additional files truncated to fit token limit]'
+    : codeContext;
+
   // Build missing files note
   const missingFilesNote = missingFiles.length > 0
     ? `\n\n⚠️ NOTE: The following expected files are missing: ${missingFiles.join(', ')}. This may indicate incomplete implementation.`
     : '';
 
-  // Build requirements summary
+  // Build requirements summary (trimmed)
   const requirementsSummary = requirements
-    ? `\n\n## Technical Requirements:\n${requirements.substring(0, 2000)}`
+    ? `\n\n## Technical Requirements:\n${requirements.substring(0, MAX_REQUIREMENTS_CHARS)}`
     : '';
 
-  // Build instructions summary
+  // Build instructions summary (trimmed)
   const instructionsSummary = instructions
-    ? `\n\n## Challenge Instructions:\n${instructions.substring(0, 3000)}`
+    ? `\n\n## Challenge Instructions:\n${instructions.substring(0, MAX_INSTRUCTIONS_CHARS)}`
     : '';
 
   return `You are an expert RTK Query, Redux Toolkit, and TypeScript code reviewer. Review the following implementation for challenge "${challengeName}" (${challengeId}).
@@ -243,7 +257,7 @@ function buildReviewPrompt(challengeId, challengeMetadata, instructions, require
 
 The following code files were created/modified by the user for this challenge:
 
-${codeContext}${missingFilesNote}
+${truncatedCodeContext}${missingFilesNote}
 
 ## Review Task:
 
@@ -309,7 +323,7 @@ async function callGroqAPI(prompt) {
         }
       ],
       temperature: 0.3,
-      max_tokens: 1500 // Increased for more detailed feedback
+      max_tokens: 800 // Trimmed from 1500 — output JSON schema is small; this was pushing requests over the 6000 TPM cap
     })
   });
 

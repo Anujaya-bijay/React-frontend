@@ -40,6 +40,11 @@ const MODEL = 'llama-3.1-8b-instant';
 // File extensions to include in code review
 const CODE_EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx'];
 
+// Token-budget limits (Groq free tier: 6000 TPM for this model)
+// Tightened to stay well under the 6000 TPM cap.
+const MAX_CHARS_PER_FILE = 2000;        // was 8000
+const MAX_TOTAL_CONTEXT_CHARS = 7000;   // was uncapped
+
 /**
  * Reviews code using AI for qualitative feedback
  * @param {string} challengeId - Challenge ID
@@ -93,7 +98,7 @@ export async function reviewCodeWithAI(challengeId, challengeMetadata, projectDi
         if (CODE_EXTENSIONS.includes(extname(fullPath)) && content.trim().length > 0) {
           codeFiles.push({
             file: filePath,
-            content: content.substring(0, 8000) // Limit to 8KB per file
+            content: content.substring(0, MAX_CHARS_PER_FILE)
           });
         }
       } else {
@@ -185,7 +190,7 @@ function discoverAdditionalFiles(challengeMetadata, projectDir) {
                   if (content.trim().length > 0) {
                     additionalFiles.push({
                       file: relativePath,
-                      content: content.substring(0, 8000)
+                      content: content.substring(0, MAX_CHARS_PER_FILE)
                     });
                   }
                 } catch (e) {
@@ -217,19 +222,24 @@ function buildReviewPrompt(challengeId, challengeMetadata, instructions, require
     `File: ${f.file}\n\`\`\`typescript\n${f.content}\n\`\`\``
   ).join('\n\n---\n\n');
 
+  // Cap total combined code context so the whole prompt stays under the token budget
+  const truncatedCodeContext = codeContext.length > MAX_TOTAL_CONTEXT_CHARS
+    ? codeContext.substring(0, MAX_TOTAL_CONTEXT_CHARS) + '\n\n... [additional files truncated to fit token limit]'
+    : codeContext;
+
   // Build missing files note
   const missingFilesNote = missingFiles.length > 0
-    ? `\n\n⚠️ NOTE: The following expected files are missing: ${missingFiles.join(', ')}. This may indicate incomplete implementation.`
+    ? `\n\nNOTE: The following expected files are missing: ${missingFiles.join(', ')}. This may indicate incomplete implementation.`
     : '';
 
-  // Build requirements summary
+  // Build requirements summary (trimmed: was 2000 chars)
   const requirementsSummary = requirements
-    ? `\n\n## Technical Requirements:\n${requirements.substring(0, 2000)}`
+    ? `\n\n## Technical Requirements:\n${requirements.substring(0, 1000)}`
     : '';
 
-  // Build instructions summary
+  // Build instructions summary (trimmed: was 3000 chars)
   const instructionsSummary = instructions
-    ? `\n\n## Challenge Instructions:\n${instructions.substring(0, 3000)}`
+    ? `\n\n## Challenge Instructions:\n${instructions.substring(0, 1200)}`
     : '';
 
   return `You are an expert RTK Query, Redux Toolkit, and TypeScript code reviewer. Review the following implementation for challenge "${challengeName}" (${challengeId}).
@@ -243,7 +253,7 @@ function buildReviewPrompt(challengeId, challengeMetadata, instructions, require
 
 The following code files were created/modified by the user for this challenge:
 
-${codeContext}${missingFilesNote}
+${truncatedCodeContext}${missingFilesNote}
 
 ## Review Task:
 
@@ -272,7 +282,7 @@ Provide a comprehensive code review focusing on:
 
 ## Output Format:
 
-Respond with ONLY a single valid JSON object and nothing else — no markdown code fences, no preamble like "Here is the review", no text after the JSON. Keep each string field concise so the entire response fits well within the token limit:
+Provide your review as JSON:
 
 {
   "readability": <number 0-100>,
@@ -283,7 +293,7 @@ Respond with ONLY a single valid JSON object and nothing else — no markdown co
   "requirementCompliance": <number 0-100, how well requirements are met>
 }
 
-Be specific in your feedback. Reference specific files and code patterns. Focus on actionable improvements. Respond with the JSON object only.`;
+Be specific in your feedback. Reference specific files and code patterns. Focus on actionable improvements.`;
 }
 
 /**
@@ -301,162 +311,10 @@ async function callGroqAPI(prompt) {
       messages: [
         {
           role: 'system',
-          content: 'You are an expert RTK Query, Redux Toolkit, and TypeScript code reviewer. Provide detailed, specific, actionable feedback. Reference specific files and code patterns in your feedback. Always respond with a single valid JSON object only — no markdown fences, no extra prose before or after the JSON.'
+          content: 'You are an expert RTK Query, Redux Toolkit, and TypeScript code reviewer. Provide detailed, specific, actionable feedback. Reference specific files and code patterns in your feedback.'
         },
         {
           role: 'user',
           content: prompt
         }
       ],
-      temperature: 0.3,
-      max_tokens: 2500 // Increased to avoid truncating the JSON response mid-object
-    })
-  });
-
-  const data = await response.json().catch(() => ({}));
-
-  if (!response.ok) {
-    const msg = data?.error?.message || data?.error || response.statusText;
-    throw new Error(`Groq API error (${response.status}): ${msg}`);
-  }
-
-  const content = data?.choices?.[0]?.message?.content;
-  if (content == null || typeof content !== 'string') {
-    throw new Error('Groq API returned no content (check model/response shape)');
-  }
-  return content;
-}
-
-/**
- * Parse AI response
- */
-function parseAIResponse(response) {
-  const jsonStr = extractBalancedJson(response);
-
-  if (jsonStr) {
-    try {
-      const parsed = JSON.parse(jsonStr);
-      return {
-        readability: parsed.readability || 0,
-        maintainability: parsed.maintainability || 0,
-        strengths: parsed.strengths || [],
-        improvements: parsed.improvements || [],
-        overall: parsed.overall || '',
-        requirementCompliance: parsed.requirementCompliance || 0
-      };
-    } catch (error) {
-      // fall through to manual fallback below
-    }
-  }
-
-  // Fallback: extract information manually.
-  // Keys may or may not be quoted, e.g. "readability": 90  OR  readability: 90
-  const readabilityMatch = response.match(/"?readability"?\s*:\s*(\d+)/i);
-  const maintainabilityMatch = response.match(/"?maintainability"?\s*:\s*(\d+)/i);
-  const complianceMatch = response.match(/"?requirementCompliance"?\s*:\s*(\d+)/i);
-
-  return {
-    readability: readabilityMatch ? parseInt(readabilityMatch[1]) : 0,
-    maintainability: maintainabilityMatch ? parseInt(maintainabilityMatch[1]) : 0,
-    requirementCompliance: complianceMatch ? parseInt(complianceMatch[1]) : 0,
-    strengths: extractList(response, /strengths?/i),
-    improvements: extractList(response, /improvements?/i),
-    overall: response.substring(0, 500)
-  };
-}
-
-/**
- * Find the first '{' in the text and scan forward tracking brace depth
- * (respecting strings/escapes) to find its matching closing '}'.
- * More robust than a greedy regex when the response has prose before/after
- * the JSON, or when truncation leaves stray braces.
- * Returns null if no balanced JSON object is found (e.g. truncated response).
- */
-function extractBalancedJson(text) {
-  const start = text.indexOf('{');
-  if (start === -1) return null;
-
-  let depth = 0;
-  let inString = false;
-  let escapeNext = false;
-
-  for (let i = start; i < text.length; i++) {
-    const ch = text[i];
-
-    if (escapeNext) {
-      escapeNext = false;
-      continue;
-    }
-    if (ch === '\\') {
-      escapeNext = true;
-      continue;
-    }
-    if (ch === '"') {
-      inString = !inString;
-      continue;
-    }
-    if (inString) continue;
-
-    if (ch === '{') depth++;
-    if (ch === '}') {
-      depth--;
-      if (depth === 0) {
-        return text.substring(start, i + 1);
-      }
-    }
-  }
-
-  // Never closed — likely truncated response
-  return null;
-}
-
-/**
- * Extract list items from text
- */
-function extractList(text, keyword) {
-  const lines = text.split('\n');
-  const list = [];
-  let inList = false;
-  const matchesKeyword = (line) =>
-    typeof keyword === 'string'
-      ? line.toLowerCase().includes(keyword)
-      : keyword.test(line);
-
-  for (const line of lines) {
-    if (matchesKeyword(line)) {
-      inList = true;
-      continue;
-    }
-    if (inList && (line.trim().startsWith('-') || line.trim().match(/^\d+\./) || line.trim().startsWith('"'))) {
-      let item = line.trim().replace(/^[-•\d."]+\s*/, '').replace(/^["']|["']$/g, '');
-      if (item) {
-        list.push(item);
-        if (list.length >= 5) break; // Allow up to 5 items
-      }
-    }
-    if (inList && line.trim() === '' && list.length > 0) {
-      break;
-    }
-  }
-
-  return list.length > 0 ? list : [];
-}
-
-/**
- * Calculate AI score based on multiple factors
- */
-function calculateAIScore(parsedResponse) {
-  const readability = parsedResponse.readability || 0;
-  const maintainability = parsedResponse.maintainability || 0;
-  const requirementCompliance = parsedResponse.requirementCompliance || 0;
-
-  // Weighted average: requirement compliance is most important
-  // Since tests already passed, we focus on code quality
-  const score = Math.round(
-    (requirementCompliance * 0.4) +
-    (readability * 0.3) +
-    (maintainability * 0.3)
-  );
-
-  return Math.max(0, Math.min(100, score)); // Clamp between 0-100
-}

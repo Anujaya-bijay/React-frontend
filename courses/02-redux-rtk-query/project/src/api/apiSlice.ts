@@ -69,6 +69,35 @@ export const apiSlice = createApi({
           : [{ type: 'Post' as const, id: 'LIST' }],
     }),
 
+    getPostById: builder.query<Post, number>({
+      queryFn: async (id) => {
+        try {
+          // Uses the existing getPosts mock data source and finds the match,
+          // so it works regardless of whether mockApi exposes a dedicated
+          // single-post method.
+          const posts = await mockApi.getPosts();
+          const post = posts.find((p) => p.id === id);
+          if (!post) {
+            return {
+              error: {
+                status: 'CUSTOM_ERROR',
+                error: `Post with id ${id} not found`,
+              },
+            };
+          }
+          return { data: post };
+        } catch (error: unknown) {
+          return {
+            error: {
+              status: 'CUSTOM_ERROR',
+              error: error instanceof Error ? error.message : 'Failed to fetch post',
+            },
+          };
+        }
+      },
+      providesTags: (result, error, id) => [{ type: 'Post' as const, id }],
+    }),
+
     addPost: builder.mutation<Post, Omit<Post, 'id'>>({
       queryFn: async (newPost) => {
         try {
@@ -108,5 +137,6 @@ export const {
   useGetUsersQuery,
   useAddUserMutation,
   useGetPostsQuery,
+  useGetPostByIdQuery,
   useAddPostMutation,
 } = apiSlice;

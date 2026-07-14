@@ -318,5 +318,30 @@
       "overall": "The code meets most of the functional requirements and uses RTK Query correctly. However, there are a few areas that need improvement, including simplifying complex functions and conditional statements, and properly memoizing hooks.",
       "requirementCompliance": 80
     }
+  },
+  {
+    "challengeId": "13-query-parameters",
+    "challengeName": "Query with Parameters and Detail View",
+    "aiReview": {
+      "challengeId": "13-query-parameters",
+      "timestamp": "2026-07-14T03:44:21.800Z",
+      "score": 78,
+      "feedback": [],
+      "strengths": [
+        "Correct use of RTK Query",
+        "Well-organized API slice",
+        "Good use of TypeScript"
+      ],
+      "improvements": [
+        "Add `getPostById` query endpoint in `src/api/apiSlice.ts`",
+        "Properly handle `skip` argument in `src/components/PostDetail.tsx`",
+        "Export `mockApi` object in `src/api/mockServer.ts`",
+        "Properly handle `addPost` function in `src/components/AddPostForm.tsx`"
+      ],
+      "readability": 80,
+      "maintainability": 85,
+      "overall": "The code meets most requirements, but some minor issues exist. Improvements could be made for better maintainability and extensibility.",
+      "requirementCompliance": 70
+    }
   }
 ]

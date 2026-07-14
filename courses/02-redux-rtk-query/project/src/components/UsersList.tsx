@@ -1,22 +1,22 @@
-import { useGetUsersQuery } from '../api/apiSlice';
+import React from 'react';
+import { useGetUsersQuery } from '../store/usersApi'; // adjust path/name to match your setup
+import ErrorDisplay from './ErrorDisplay';
 
-const UsersList = () => {
-  const { data, isLoading, error } = useGetUsersQuery();
+const UsersList: React.FC = () => {
+  const { data: users, isLoading, isError, error, refetch } = useGetUsersQuery();
 
   if (isLoading) {
-    return <div data-testid="users-loading">Loading...</div>;
+    return <div data-testid="users-loading">Loading users...</div>;
   }
 
-  if (error) {
-    return <div data-testid="users-error">Error loading users</div>;
+  if (isError) {
+    return <ErrorDisplay error={error} onRetry={refetch} />;
   }
 
   return (
     <ul data-testid="users-list">
-      {data?.map((user) => (
-        <li key={user.id}>
-          {user.name} — {user.email} — {user.username}
-        </li>
+      {users?.map((user) => (
+        <li key={user.id}>{user.name}</li>
       ))}
     </ul>
   );
